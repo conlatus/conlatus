@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conlatus Dev Dashboard — Audio & Video Interview Debugger</title>
+    <style>
+        * { box-sizing: border-box; font-family: monospace, sans-serif; }
+        body { margin: 0; padding: 20px; background: #f4f5f7; color: #222; }
+        h1 { margin-top: 0; font-size: 1.4rem; border-bottom: 2px solid #ccc; padding-bottom: 8px; }
+        .controls { margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; }
+        button { padding: 8px 16px; cursor: pointer; font-weight: bold; background: #0066cc; color: white; border: none; border-radius: 4px; }
+        button:hover { background: #0052a3; }
+        button:disabled { background: #888; cursor: not-allowed; }
+        .container { display: flex; gap: 20px; }
+        .chat-panel { flex: 2; display: flex; flex-direction: column; background: white; border: 1px solid #ccc; border-radius: 6px; padding: 15px; height: 78vh; }
+        .side-panel { flex: 1; background: white; border: 1px solid #ccc; border-radius: 6px; padding: 15px; height: 78vh; overflow-y: auto; }
+        .log-box { flex: 1; overflow-y: auto; border: 1px solid #eee; padding: 10px; margin-bottom: 15px; border-radius: 4px; background: #fafafa; }
+        .msg { margin-bottom: 12px; padding: 8px 12px; border-radius: 4px; max-width: 85%; line-height: 1.4; }
+        .msg.interviewer { background: #e6f0ff; border-left: 4px solid #0066cc; }
+        .msg.candidate { background: #e6ffe6; border-left: 4px solid #00aa00; margin-left: auto; text-align: right; }
+        .msg .role { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; color: #555; margin-bottom: 4px; }
+        .input-row { display: flex; gap: 10px; align-items: center; }
+        .input-row input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; }
+        pre { background: #eee; padding: 10px; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; white-space: pre-wrap; }
+        .verdict-box { padding: 10px; border-radius: 4px; margin-top: 10px; font-weight: bold; }
+        .verdict-PASS { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .verdict-FAIL { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .verdict-INCOMPLETE { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .state-badge { font-weight: bold; padding: 4px 8px; border-radius: 4px; background: #e0e0e0; color: #171a21; text-transform: uppercase; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+    <h1>Conlatus Developer Dashboard — Audio & Video Integration (Steps 2–4)</h1>
+
+    <div class="controls">
+        <div>
+            <button id="start-btn" onclick="startInterview()">Start New Interview</button>
+            <span id="session-info" style="margin-left: 15px; font-weight: bold; color: #555;">No session active</span>
+        </div>
+        <div>
+            <button id="cam-btn" onclick="toggleCamera()" style="background: #5b6470;">Enable Camera</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Chat Panel -->
+        <div class="chat-panel">
+            <div id="log-box" class="log-box">
+                <div style="color: #888; text-align: center; margin-top: 40px;">Click "Start New Interview" to begin.</div>
+            </div>
+            <div class="input-row">
+                <input type="text" id="msg-input" placeholder="Type candidate response..." disabled onkeydown="if(event.key==='Enter') sendMessage()" />
+                <button id="send-btn" onclick="sendMessage()" disabled>Send</button>
+                <button id="mic-btn" style="background: #4c8b72; white-space: nowrap;" disabled>🎙️ Hold to Talk</button>
+            </div>
+        </div>
+
+        <!-- Live Side Panel -->
+        <div class="side-panel">
+            <!-- Camera Preview Box -->
+            <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                <strong style="display: block; margin-bottom: 5px;">Live Camera Preview</strong>
+                <video id="camera-preview" autoplay playsinline muted style="width: 100%; height: 160px; background: #171a21; border-radius: 4px; object-fit: cover; border: 1px solid #ccc;"></video>
+            </div>
+
+            <h3>Live Session Status</h3>
+            <div style="margin-bottom: 8px;"><strong>System State:</strong> <span id="app-state-val" class="state-badge">IDLE</span></div>
+            <div><strong>Status:</strong> <span id="status-val">-</span></div>
+            <div><strong>Current Question Index:</strong> <span id="q-idx-val">-</span></div>
+            <div><strong>Follow-up Count:</strong> <span id="followup-count-val">-</span></div>
+            <div><strong>Total Turns:</strong> <span id="total-turns-val">-</span></div>
+
+            <div id="verdict-container"></div>
+
+            <h4>Accumulated Rubric Evidence</h4>
+            <pre id="evidence-json">{}</pre>
+        </div>
+    </div>
+
+    <script>
+        let currentSessionId = null;
+        let mediaStream = null;
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let isRecording = false;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupMicButton();
+        });
+
+        function setAppState(state) {
+            const elem = document.getElementById('app-state-val');
+            if (!elem) return;
+            const upper = state.toUpperCase();
+            elem.textContent = upper;
+            
+            const bgMap = {
+                'IDLE': '#e0e0e0',
+                'LISTENING': '#d89b3c',
+                'TRANSCRIBING': '#ffc107',
+                'THINKING': '#17a2b8',
+                'SPEAKING': '#28a745'
+            };
+            elem.style.background = bgMap[upper] || '#e0e0e0';
+            elem.style.color = (upper === 'IDLE') ? '#171a21' : '#ffffff';
+        }
+
+        function disableInputControls(disabled) {
+            document.getElementById('msg-input').disabled = disabled;
+            document.getElementById('send-btn').disabled = disabled;
+            document.getElementById('mic-btn').disabled = disabled;
+        }
+
+        async function toggleCamera() {
+            const btn = document.getElementById('cam-btn');
+            const videoElem = document.getElementById('camera-preview');
+            if (mediaStream) {
+                mediaStream.getTracks().forEach(t => t.stop());
+                mediaStream = null;
+                videoElem.srcObject = null;
+                btn.textContent = 'Enable Camera';
+                btn.style.background = '#5b6470';
+            } else {
+                try {
+                    mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                    videoElem.srcObject = mediaStream;
+                    btn.textContent = 'Disable Camera';
+                    btn.style.background = '#b5533c';
+                    /*
+                     * Scope note: Camera is strictly live preview only (Step 4). No frame analysis or persistence.
+                     * Natural spot for future detection logic (Phase 04 proctoring): attaching a requestAnimationFrame
+                     * canvas frame grab handler right here to videoElem.
+                     */
+                } catch (err) {
+                    alert('Camera permission denied or camera device unavailable: ' + err.message);
+                }
+            }
+        }
+
+        function setupMicButton() {
+            const micBtn = document.getElementById('mic-btn');
+
+            const startRec = async (e) => {
+                e.preventDefault();
+                if (isRecording || !currentSessionId || micBtn.disabled) return;
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    audioChunks = [];
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.ondataavailable = (event) => {
+                        if (event.data.size > 0) audioChunks.push(event.data);
+                    };
+                    mediaRecorder.onstop = sendAudioMessage;
+                    mediaRecorder.start();
+                    isRecording = true;
+                    micBtn.textContent = '🔴 Listening... (Release)';
+                    micBtn.style.background = '#d89b3c';
+                    setAppState('listening');
+                } catch (err) {
+                    appendErrorMessage('Microphone permission error: ' + err.message);
+                    setAppState('idle');
+                }
+            };
+
+            const stopRec = (e) => {
+                e.preventDefault();
+                if (!isRecording || !mediaRecorder) return;
+                if (mediaRecorder.state !== 'inactive') {
+                    mediaRecorder.stop();
+                    mediaRecorder.stream.getTracks().forEach(t => t.stop());
+                }
+                isRecording = false;
+                micBtn.textContent = '🎙️ Hold to Talk';
+                micBtn.style.background = '#4c8b72';
+                setAppState('transcribing');
+            };
+
+            micBtn.addEventListener('mousedown', startRec);
+            micBtn.addEventListener('mouseup', stopRec);
+            micBtn.addEventListener('mouseleave', stopRec);
+            micBtn.addEventListener('touchstart', startRec);
+            micBtn.addEventListener('touchend', stopRec);
+        }
+
+        async function sendAudioMessage() {
+            if (audioChunks.length === 0 || !currentSessionId) {
+                setAppState('idle');
+                return;
+            }
+            const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+            audioChunks = [];
+
+            setAppState('transcribing');
+            disableInputControls(true);
+
+            const formData = new FormData();
+            formData.append('file', audioBlob, 'candidate_turn.webm');
+
+            try {
+                setAppState('thinking');
+                const resp = await fetch(`/interview/${currentSessionId}/audio-message`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!resp.ok) {
+                    let errDetail = resp.statusText;
+                    try {
+                        const err = await resp.json();
+                        if (err && err.detail) errDetail = err.detail;
+                    } catch (_) {}
+                    appendErrorMessage(`[${resp.status}] Audio STT Error: ${errDetail}`);
+                    setAppState('idle');
+                    disableInputControls(false);
+                    return;
+                }
+
+                const data = await resp.json();
+
+                if (data.transcript) {
+                    appendMessage('candidate', data.transcript);
+                }
+
+                await fetchStatus();
+
+                if (data.next_question) {
+                    appendMessage('interviewer', data.next_question, data.is_followup);
+                    speakText(data.next_question);
+                } else {
+                    setAppState('idle');
+                }
+
+                if (data.status === 'completed' || data.status === 'length_limited') {
+                    disableInputControls(true);
+                } else {
+                    disableInputControls(false);
+                }
+            } catch (e) {
+                appendErrorMessage('Network error during audio transmission: ' + e.message);
+                setAppState('idle');
+                disableInputControls(false);
+            }
+        }
+
+        async function startInterview() {
+            try {
+                setAppState('thinking');
+                const resp = await fetch('/interview/start', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ candidate_id: 'dev-user' })
+                });
+
+                if (!resp.ok) {
+                    let errDetail = resp.statusText;
+                    try {
+                        const err = await resp.json();
+                        if (err && err.detail) errDetail = err.detail;
+                    } catch (_) {}
+                    const logBox = document.getElementById('log-box');
+                    logBox.innerHTML = '';
+                    appendErrorMessage(`[${resp.status}] Failed to start interview: ${errDetail}`);
+                    setAppState('idle');
+                    return;
+                }
+
+                const data = await resp.json();
+                currentSessionId = data.session_id;
+
+                document.getElementById('session-info').textContent = `Session: ${currentSessionId}`;
+                disableInputControls(false);
+
+                const logBox = document.getElementById('log-box');
+                logBox.innerHTML = '';
+                appendMessage('interviewer', data.question);
+
+                await fetchStatus();
+                speakText(data.question);
+            } catch (e) {
+                appendErrorMessage('Network error: ' + e.message);
+                setAppState('idle');
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('msg-input');
+            const text = input.value.trim();
+            if (!text || !currentSessionId) return;
+
+            appendMessage('candidate', text);
+            input.value = '';
+            disableInputControls(true);
+            setAppState('thinking');
+
+            try {
+                const resp = await fetch(`/interview/${currentSessionId}/message`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+
+                if (!resp.ok) {
+                    let errDetail = resp.statusText;
+                    try {
+                        const err = await resp.json();
+                        if (err && err.detail) errDetail = err.detail;
+                    } catch (_) {}
+                    appendErrorMessage(`[${resp.status}] ${errDetail}`);
+                    disableInputControls(false);
+                    setAppState('idle');
+                    input.focus();
+                    return;
+                }
+
+                const data = await resp.json();
+
+                if (data.next_question) {
+                    appendMessage('interviewer', data.next_question, data.is_followup);
+                    speakText(data.next_question);
+                } else {
+                    setAppState('idle');
+                }
+
+                await fetchStatus();
+
+                if (data.status === 'completed' || data.status === 'length_limited') {
+                    disableInputControls(true);
+                } else {
+                    disableInputControls(false);
+                    input.focus();
+                }
+            } catch (e) {
+                appendErrorMessage('Network error: ' + e.message);
+                disableInputControls(false);
+                setAppState('idle');
+                input.focus();
+            }
+        }
+
+        function speakText(text) {
+            if (!('speechSynthesis' in window)) {
+                console.warn('SpeechSynthesis API is not supported in this browser.');
+                setAppState('idle');
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+
+            const sentences = chunkSentencesJS(text);
+            if (sentences.length === 0) {
+                setAppState('idle');
+                return;
+            }
+
+            setAppState('speaking');
+            let remainingUtterances = sentences.length;
+
+            sentences.forEach((sentence) => {
+                const utterance = new SpeechSynthesisUtterance(sentence);
+                utterance.onend = () => {
+                    remainingUtterances--;
+                    if (remainingUtterances <= 0) {
+                        setAppState('idle');
+                    }
+                };
+                utterance.onerror = (err) => {
+                    console.error('SpeechSynthesis error:', err);
+                    remainingUtterances--;
+                    if (remainingUtterances <= 0) {
+                        setAppState('idle');
+                    }
+                };
+                window.speechSynthesis.speak(utterance);
+            });
+        }
+
+        function chunkSentencesJS(text) {
+            if (!text || !text.trim()) return [];
+            const regex = /[^.!?]+[.!?]+(?=\s|$)/g;
+            let matches = text.match(regex) || [];
+            let matchedLen = matches.join('').length;
+            let remainder = text.slice(matchedLen).trim();
+
+            let chunks = matches.map(s => s.trim()).filter(s => s.length > 0);
+            if (remainder.length > 0) {
+                chunks.push(remainder);
+            }
+            return chunks;
+        }
+
+        function appendErrorMessage(text) {
+            const logBox = document.getElementById('log-box');
+            const div = document.createElement('div');
+            div.className = 'msg error';
+            div.style.cssText = 'background: #f8d7da; border-left: 4px solid #dc3545; color: #721c24; margin-bottom: 12px; padding: 10px 12px; border-radius: 4px; font-weight: bold;';
+            div.innerHTML = `<div class="role" style="color: #721c24;">SYSTEM ERROR</div><div>${escapeHtml(text)}</div>`;
+            logBox.appendChild(div);
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        async function fetchStatus() {
+            if (!currentSessionId) return;
+
+            try {
+                const resp = await fetch(`/interview/${currentSessionId}/status`);
+                if (!resp.ok) return;
+
+                const data = await resp.json();
+
+                document.getElementById('status-val').textContent = data.status;
+                document.getElementById('q-idx-val').textContent = data.current_question_index;
+                document.getElementById('followup-count-val').textContent = data.current_question_followup_count;
+                document.getElementById('total-turns-val').textContent = data.total_turns;
+
+                document.getElementById('evidence-json').textContent = JSON.stringify(data.rubric_evidence, null, 2);
+
+                const verdictBox = document.getElementById('verdict-container');
+                if (data.verdict) {
+                    const v = data.verdict;
+                    verdictBox.innerHTML = `
+                        <div class="verdict-box verdict-${v.verdict}">
+                            Final Verdict: ${v.verdict}<br>
+                            Overall Score: ${v.overall_score} / 5.0 (Threshold: ${v.threshold})
+                        </div>
+                    `;
+                } else {
+                    verdictBox.innerHTML = '';
+                }
+            } catch (e) {
+                console.error('Error fetching status:', e);
+            }
+        }
+
+        function appendMessage(role, text, isFollowup = false) {
+            const logBox = document.getElementById('log-box');
+            const div = document.createElement('div');
+            div.className = `msg ${role}`;
+
+            const label = role === 'interviewer'
+                ? (isFollowup ? 'Interviewer (Follow-up)' : 'Interviewer')
+                : 'Candidate';
+
+            div.innerHTML = `<div class="role">${label}</div><div>${escapeHtml(text)}</div>`;
+            logBox.appendChild(div);
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>

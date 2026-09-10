@@ -1,0 +1,18 @@
+# Features
+
+- [Dynamic Interview Link Generation](../docs/dynamic-interview-links.md) - Allows admins to dynamically configure AI interviews and generate shareable links for candidates.
+- [Resilient Audio Interview Lifecycle](../docs/resilient-audio-interview-lifecycle.md) - Comprehensive multi-turn audio processing, transient error retry loops, and clean interview completion handling.
+- [Standalone Full-Stack Architecture Refactoring](../docs/codebase-refactoring.md) - Clean separation of `/backend` and `/frontend`, dynamic import resolution, and single-command lifecycle orchestration.
+- [Favicon & Brand Icon Integration](../docs/favicon-brand-integration.md) - Official Conlatus favicon placement in Next.js App Router and UI headers.
+- [Comprehensive Gitignore & Repository Hygiene](../docs/gitignore-repository-hygiene.md) - Monorepo-aware gitignore configuration and cached build artifact cleanup.
+- [AI Interview Platform Modernization Blueprint](../docs/modernization-implementation-prompts.md) - Structured, dependency-ordered engineering prompts and architectural roadmap for database, auth, dialogue engine, reports, and admin suite.
+- [Asynchronous Database Abstraction Layer](../docs/database-abstraction-layer.md) - Clean, dynamic SQLAlchemy 2.0 and Alembic database layer supporting SQLite local dev and Postgres/Supabase/Neon production switching.
+- [Autonomous AI Interview Question Generation](../docs/autonomous-question-generation.md) - Synthesizes tailored, scenario-based technical questions and robust grading rubrics using LLMs.
+- [Adaptive Dialogue Engine & Resilient Probing](../docs/adaptive-dialogue-engine.md) - Production-grade conversational state machine that evaluates candidate responses dynamically with exponential backoff on API limits.
+- [Multi-Dimensional Report Engine](../docs/report-engine.md) - Dual-pass evaluation system generating comprehensive scorecards, qualitative feedback, verbatim evidence quotes, and recruiter overrides.
+- [Conlatus Admin Portal & Evaluation Suite](../docs/admin-portal.md) - Full-stack dark-tech admin interfaces for dashboard KPIs, candidate tracking, radar charts, quote evidence viewer, and model settings.
+- [Comprehensive Modular Test Suite](../docs/test-suite.md) - Automated verification pyramid with 55 unit and integration tests covering database, auth, dialogue engine, question synthesis, reports, admin APIs, and audio handoff.
+- [Interview Router Hardening & NPM/PNPM Compatibility](../docs/interview-router-and-npm-compatibility.md) - Resolved import paths and UUID serialization in interview.py, added root npm workspaces, and updated README for dual package manager compatibility.
+- [Landing Page, Candidate Access Portal & Shareable Recruiter Invites](../docs/landing-and-candidate-portal.md) - Rebuilt root route into a high-end landing page, added a dedicated candidate onboarding portal (`/interview/[code]`) with live metadata verification, and upgraded admin setup with WhatsApp and Zoom-style invite sharing.
+- [High-Speed AI Curriculum Synthesis](../docs/high-speed-curriculum-synthesis.md) - Sub-3-second autonomous interview curriculum generation with resilient multi-model routing and zero-delay 404 fail-fast.
+- [OpenAI GPT-OSS-120B Model Migration & Test Teardown Fix](../docs/gpt-oss-120b-migration-and-test-runner-fix.md) - Replaced discontinued llama-3.3-70b-versatile with openai/gpt-oss-120b as primary across the entire project and resolved Pytest teardown hanging.

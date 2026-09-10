@@ -1,0 +1,29 @@
+# Environment configuration
+.env
+.env.local
+.env.*.local
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# Test reports and coverage
+test-reports/
+htmlcov/
+.coverage
+.coverage.*
+
+# IDE / OS specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+Desktop.ini
