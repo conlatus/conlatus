@@ -2,7 +2,7 @@
 rubric_config.py — MVP rubric + question config (loaded via import, not DB)
 """
 
-ROLE_TITLE = "Backend Developer — Internship"
+ROLE_TITLE = "Junior Web Developer — Fundamentals"
 
 # Rubric criteria the interview evaluates against.
 # `weight` values across all criteria should sum to 1.0.
@@ -10,17 +10,17 @@ RUBRIC_CRITERIA = {
     "technical_depth": {
         "weight": 0.4,
         "scale": 5,  # score range 1-5 per criterion
-        "description": "Depth of understanding, not just correct terminology.",
+        "description": "Understanding of basic programming and web concepts.",
     },
     "problem_solving": {
         "weight": 0.3,
         "scale": 5,
-        "description": "Ability to reason through edge cases and trade-offs.",
+        "description": "Ability to identify language paradigms and core syntax elements.",
     },
     "communication": {
         "weight": 0.3,
         "scale": 5,
-        "description": "Clarity and structure of explanation.",
+        "description": "Clear, concise answers (single-word or short answers are encouraged).",
     },
 }
 
@@ -42,27 +42,33 @@ SAFETY_CEILING = 30
 QUESTIONS = [
     {
         "id": "q1",
-        "text": "Explain the difference between REST and GraphQL.",
+        "text": "What is HTML?",
         "maps_to": ["technical_depth"],
-        "notes": "Look for understanding of trade-offs, not just definitions.",
+        "notes": "Candidate can provide a single-word or short answer, e.g., 'markup', 'structure', 'webpages', or 'HyperText Markup Language'.",
     },
     {
         "id": "q2",
-        "text": "Walk me through how you'd debug a slow API endpoint.",
-        "maps_to": ["problem_solving", "communication"],
-        "notes": "",
+        "text": "What is CSS?",
+        "maps_to": ["technical_depth", "communication"],
+        "notes": "Candidate can provide a single-word or short answer, e.g., 'styling', 'styles', 'design', or 'presentation'.",
     },
     {
         "id": "q3",
-        "text": "How do database indexes improve query performance, and what are their trade-offs?",
+        "text": "What are variables in programming?",
         "maps_to": ["technical_depth", "problem_solving"],
-        "notes": "Candidate should mention index structures and write overhead.",
+        "notes": "Candidate can answer in one word or a brief phrase, e.g., 'containers', 'storage', 'data holders', or 'memory'.",
     },
     {
         "id": "q4",
-        "text": "How would you design a simple rate limiter for a REST API?",
-        "maps_to": ["technical_depth", "problem_solving", "communication"],
-        "notes": "Look for sliding window / token bucket concepts.",
+        "text": "Give one example of an interpreted programming language.",
+        "maps_to": ["problem_solving", "communication"],
+        "notes": "One-word answer expected, e.g., 'Python', 'JavaScript', 'Ruby', or 'PHP'.",
+    },
+    {
+        "id": "q5",
+        "text": "Give one example of a compiled programming language.",
+        "maps_to": ["problem_solving", "communication"],
+        "notes": "One-word answer expected, e.g., 'C', 'C++', 'Java', 'Rust', or 'Go'.",
     },
 ]
 

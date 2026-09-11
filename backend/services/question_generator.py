@@ -47,51 +47,52 @@ class QuestionGenerator:
         num_questions = 4
         topics_str = ", ".join(request.topics) if request.topics else "General Software Engineering"
 
-        system_prompt = f"""You are an elite Staff-level engineering interviewer and technical assessor.
-Your task is to generate {num_questions} to 5 deep, scenario-based interview questions for a '{request.role_title}' role.
+        system_prompt = f"""You are an encouraging, friendly technical interviewer and curriculum designer.
+Your task is to generate {num_questions} to 5 short, very easy introductory interview questions for a '{request.role_title}' role.
 Seniority Level: {request.seniority_level}
 Topics to focus on: {topics_str}
 
-Rules:
-1. Do NOT ask generic textbook trivia (e.g., "What is useState?").
-2. Emphasize real-world trade-offs, architectural decisions, and production debugging scenarios.
-3. Incorporate the following grounding context: {grounding_context}
-4. Job Description context (if any): {request.job_description or 'N/A'}
-5. You MUST generate at least 4 distinct questions in the 'questions' list (e.g., id 'q1', 'q2', 'q3', 'q4').
-6. Format the output strictly as a JSON object matching the CurriculumPlanSchema.
+CRITICAL RULES:
+1. SHORT QUESTIONS: Every question MUST be very short — approximately ONE concise sentence (~ 6 to 15 words). NEVER generate long paragraphs, complex setups, or multi-sentence scenario descriptions.
+2. TOO EASY / FUNDAMENTAL: Keep questions extremely simple, beginner-friendly, and straightforward (e.g., "What is HTML?", "What is CSS used for?", "What is a variable in programming?", "Give one example of an interpreted language.", "Give one example of a compiled language.").
+3. ONE-WORD ANSWERS ALLOWED: Formulate questions such that candidate answers can be a single word or brief phrase (e.g. "Python", "styling", "markup", "container").
+4. Expected Signals: In 'expected_signals', explicitly state that concise or single-word answers are completely valid and acceptable.
+5. Context: Topics to cover: {topics_str}. Job Description context (if any): {request.job_description or 'N/A'}.
+6. Generate at least 4 distinct questions in the 'questions' list (id 'q1', 'q2', 'q3', 'q4').
+7. Format the output strictly as a JSON object matching CurriculumPlanSchema.
     
 JSON Schema:
 {{
   "questions": [
     {{
       "id": "q1",
-      "text": "Scenario-based question 1 text...",
-      "competency_tag": "Architecture & Design",
-      "difficulty": 4,
-      "expected_signals": "Candidate should discuss...",
+      "text": "What is HTML?",
+      "competency_tag": "Web Fundamentals",
+      "difficulty": 1,
+      "expected_signals": "Candidate can answer in one word or a short phrase (e.g. markup, structure, webpages).",
       "rubric_criteria": {{
-        "criterion_a": {{
+        "web_basics": {{
            "weight": 0.5,
            "scale": 5,
-           "description": "Evaluation for criterion"
+           "description": "Understanding of basic web building blocks."
         }}
       }},
-      "notes": "Interviewer note"
+      "notes": "Single-word answers are completely valid."
     }},
     {{
       "id": "q2",
-      "text": "Scenario-based question 2 text...",
-      "competency_tag": "Production Debugging",
-      "difficulty": 4,
-      "expected_signals": "Candidate should discuss...",
+      "text": "Give one example of an interpreted programming language.",
+      "competency_tag": "Programming Languages",
+      "difficulty": 1,
+      "expected_signals": "Candidate can answer with a single language name (e.g. Python, JavaScript, Ruby).",
       "rubric_criteria": {{
-        "criterion_b": {{
+        "language_concepts": {{
            "weight": 0.5,
            "scale": 5,
-           "description": "Evaluation for criterion"
+           "description": "Familiarity with interpreted vs compiled languages."
         }}
       }},
-      "notes": "Interviewer note"
+      "notes": "Single-word answers are completely valid."
     }}
   ]
 }}

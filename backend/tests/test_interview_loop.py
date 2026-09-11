@@ -23,10 +23,11 @@ def test_happy_path(candidate_headers):
     session_id = start_resp.json()["session_id"]
 
     detailed_answers = [
-        "REST uses HTTP methods across endpoints, while GraphQL provides a single endpoint allowing clients to query specific fields.",
-        "To debug a slow API endpoint, I profile SQL queries using EXPLAIN ANALYZE, inspect APM traces for latency spikes, and check system metrics.",
-        "Database indexes use B-trees to speed up select queries from O(N) to O(log N), but add overhead to write operations and take storage space.",
-        "A rate limiter can be implemented in Redis using token bucket or sliding window algorithms to throttle excess client requests.",
+        "HyperText Markup Language for structuring web pages.",
+        "Cascading Style Sheets for styling and design.",
+        "A container or memory location used to store data values.",
+        "Python",
+        "C++",
     ]
 
     def mock_eval_side_effect(current_question, *args, **kwargs):

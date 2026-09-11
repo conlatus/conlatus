@@ -89,18 +89,16 @@ async def _resolve_interview_metadata(code: str, db: AsyncSession) -> Optional[d
     # 2. Check DEMO code
     if clean_code.lower() in ("demo", "demo-interview"):
         demo_id = "demo-session"
-        demo_config = interview_store.get_interview(demo_id)
-        if not demo_config:
-            demo_config = InterviewConfig(
-                id=demo_id,
-                role_title="Software Engineer (Full Stack)",
-                company_name="Conlatus AI",
-                duration_minutes=30,
-                job_description="Conlatus AI Interactive Technical Assessment",
-                questions=[{"id": f"q{i+1}", "text": q["text"], "maps_to": list(rubric_config.RUBRIC_CRITERIA.keys())} for i, q in enumerate(rubric_config.QUESTIONS)],
-                rubric_criteria=rubric_config.RUBRIC_CRITERIA,
-            )
-            interview_store.create_interview(demo_config)
+        demo_config = InterviewConfig(
+            id=demo_id,
+            role_title="Junior Web Developer — Fundamentals",
+            company_name="Conlatus AI",
+            duration_minutes=15,
+            job_description="Introductory technical assessment on basic web and programming fundamentals (HTML, CSS, variables, languages).",
+            questions=[{"id": q["id"], "text": q["text"], "maps_to": list(rubric_config.RUBRIC_CRITERIA.keys())} for q in rubric_config.QUESTIONS],
+            rubric_criteria=rubric_config.RUBRIC_CRITERIA,
+        )
+        interview_store.create_interview(demo_config)
         return {
             "id": demo_id,
             "role_title": demo_config.role_title,

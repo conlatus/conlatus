@@ -11,14 +11,14 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 export default function SetupInterviewPage() {
   const [roleTitle, setRoleTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
-  const [duration, setDuration] = useState("30");
+  const [duration, setDuration] = useState("15");
   const [jobDescription, setJobDescription] = useState("");
-  const [rubricTags, setRubricTags] = useState<string[]>(["React", "System Design"]);
+  const [rubricTags, setRubricTags] = useState<string[]>(["HTML", "CSS", "Variables", "Basic Programming"]);
   const [customQuestions, setCustomQuestions] = useState<string[]>([]);
   
   // New State for Autonomous Generation
   const [mode, setMode] = useState<"manual" | "autonomous">("manual");
-  const [seniorityLevel, setSeniorityLevel] = useState("Mid");
+  const [seniorityLevel, setSeniorityLevel] = useState("Junior");
   const [generatedQuestions, setGeneratedQuestions] = useState<any[]>([]);
   const [isSynthesizing, setIsSynthesizing] = useState(false);
 
@@ -46,7 +46,7 @@ export default function SetupInterviewPage() {
           "Authorization": `Bearer ${getAuthToken()}`
         },
         body: JSON.stringify({
-          role_title: roleTitle || "Software Engineer",
+          role_title: roleTitle || "Junior Web Developer",
           topics: rubricTags,
           seniority_level: seniorityLevel,
           job_description: jobDescription
@@ -79,9 +79,9 @@ export default function SetupInterviewPage() {
           "Authorization": `Bearer ${getAuthToken()}`
         },
         body: JSON.stringify({
-          role_title: roleTitle || "Untitled Role",
-          company_name: companyName || "Unknown Company",
-          duration_minutes: parseInt(duration) || 30,
+          role_title: roleTitle || "Junior Web Developer",
+          company_name: companyName || "Conlatus",
+          duration_minutes: parseInt(duration) || 15,
           job_description: jobDescription,
           rubric_tags: rubricTags,
           custom_questions: customQuestions,
@@ -110,9 +110,9 @@ export default function SetupInterviewPage() {
     const origin = typeof window !== "undefined" ? window.location.origin : "";
     return `Hi Candidate,
 
-You are invited to an AI Technical Interview for the position of ${roleTitle || "Software Engineer"} at ${companyName || "Conlatus"}.
+You are invited to an AI Technical Interview for the position of ${roleTitle || "Junior Web Developer"} at ${companyName || "Conlatus"}.
 
-⏱ Duration: ${duration || "30"} Minutes
+⏱ Duration: ${duration || "15"} Minutes
 🔑 Access Code: ${generatedCode}
 🔗 Direct Link: ${generatedLink}
 
@@ -270,7 +270,7 @@ Best of luck!
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <AdminInput
                 label="Job Title"
-                placeholder="e.g. Frontend Engineer"
+                placeholder="e.g. Junior Web Developer"
                 value={roleTitle}
                 onChange={(e) => setRoleTitle(e.target.value)}
               />
@@ -286,7 +286,7 @@ Best of luck!
               <AdminInput
                 label="Interview Duration (Minutes)"
                 type="number"
-                placeholder="30"
+                placeholder="15"
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
               />
@@ -315,7 +315,7 @@ Best of luck!
             </h2>
             <AdminTextarea
               label="Paste Full JD"
-              placeholder="The AI will use this to generate relevant technical and behavioral questions..."
+              placeholder="e.g. Introductory screening covering HTML, CSS, variables, and language concepts..."
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
             />
@@ -398,7 +398,7 @@ Best of luck!
               </p>
               <TagInput
                 label="Mandatory Questions"
-                placeholder="e.g. Why do you want to work here?"
+                placeholder="e.g. What is HTML?"
                 tags={customQuestions}
                 setTags={setCustomQuestions}
               />

@@ -97,7 +97,7 @@ class LLMEvaluator:
             history_text = "\n".join(history_lines)
 
         active_role = role_title if role_title else rubric_config.ROLE_TITLE
-        system_prompt = f"""You are an expert AI technical interviewer for the role: '{active_role}'.
+        system_prompt = f"""You are a friendly, encouraging AI technical interviewer for the entry-level role: '{active_role}'.
 You are evaluating the candidate's response to the current base question:
 Question ID: {current_question.get('id')}
 Question Text: "{current_question.get('text')}"
@@ -106,19 +106,31 @@ Mapped Rubric Criteria: {json.dumps(criteria_info)}
 
 Current follow-up re-probes used for this question: {current_followup_count} of max {max_followups}.
 
-Analyze the candidate's response and decide the next dialogue action (decision):
-- DEEPEN: Candidate touched on an interesting point; probe deeper technically.
-- CLARIFY: Candidate gave a vague answer; ask for specific metrics, architectural choices, or code rationale.
-- PIVOT: Candidate has demonstrated mastery or hit diminishing returns; transition gracefully to the next topic (no follow-up question needed).
-- CONCLUDE: All competencies covered or interview time budget reached (no follow-up question needed).
+CRITICAL INSTRUCTIONS ON ANSWER LENGTH & ONE-WORD RESPONSES:
+- The interview questions are fundamental concepts (e.g. "What is HTML?", "What is CSS?", "What are variables?", "Give one example of an interpreted language.").
+- Candidate answers CAN BE BRIEF OR EVEN A SINGLE WORD (e.g. "Python", "JavaScript", "HTML", "Styling", "Markup", "Storage", "C++").
+- If the candidate's one-word or concise answer is correct, award full points (score 4.0 - 5.0) and choose PIVOT to smoothly proceed to the next question.
+- Do NOT consider a short or one-word answer vague or penalize the candidate if their answer is correct.
+- Only choose CLARIFY if the response is completely blank, unintelligible, or explicitly says "I don't know" / "idk".
 
-If you choose DEEPEN or CLARIFY, you MUST provide a 'suggested_question'.
+CRITICAL INSTRUCTIONS ON QUESTION LENGTH:
+- If you choose DEEPEN or CLARIFY, the 'suggested_question' MUST BE VERY SHORT — AT MOST ONE CONCISE SENTENCE (~ 5 to 12 words).
+  Example: "Could you name one more example?" or "Can you clarify that in a few words?".
+- NEVER generate long, elaborate, or multi-sentence questions.
+
+Analyze the candidate's response and decide the next dialogue action (decision):
+- DEEPEN: Candidate gave a good answer; ask a very brief one-sentence follow-up if follow-up budget allows.
+- CLARIFY: Candidate gave a missing or unclear answer; ask a very brief one-sentence clarification.
+- PIVOT: Candidate answered accurately (including valid one-word answers) or reached diminishing returns; transition to next question (suggested_question MUST be null).
+- CONCLUDE: All questions covered or interview time budget reached (suggested_question MUST be null).
+
+If you choose DEEPEN or CLARIFY, you MUST provide a 'suggested_question' (strictly one short sentence).
 If you choose PIVOT or CONCLUDE, 'suggested_question' MUST be null.
 
 Return strict JSON matching this exact schema:
 {{
   "decision": "DEEPEN | CLARIFY | PIVOT | CONCLUDE",
-  "suggested_question": "Your follow-up question here (or null)",
+  "suggested_question": "Your one-sentence follow-up question here (or null)",
   "criterion_evaluations": [
     {{
       "criterion": "criterion_name",
@@ -204,12 +216,13 @@ Do NOT include inline code comments or markdown formatting in your JSON output.
         """Deterministic mock LLM evaluator for tests and key-less mode."""
         resp_lower = candidate_response.lower().strip()
         is_vague = (
-            "vague" in resp_lower
+            resp_lower == ""
             or "idk" in resp_lower
+            or "i don't know" in resp_lower
             or "unsure" in resp_lower
-            or len(resp_lower) < 15
+            or resp_lower == "vague"
         )
-        is_stellar = "perfect" in resp_lower or len(resp_lower) > 300
+        is_stellar = "perfect" in resp_lower or len(resp_lower) > 200
 
         mapped_criteria = current_question.get("maps_to", [])
         active_criteria = rubric_criteria if rubric_criteria else rubric_config.RUBRIC_CRITERIA
@@ -219,25 +232,20 @@ Do NOT include inline code comments or markdown formatting in your JSON output.
         evaluations = []
         if is_vague:
             decision = ProbeDecision.CLARIFY
-            suggested_followup = f"Could you clarify {current_question.get('text')}?"
+            suggested_followup = "Could you give a quick example?"
             score = 2.0
-            reasoning = "Response was vague."
+            reasoning = "Response was unclear."
         elif is_stellar:
             decision = ProbeDecision.PIVOT
             suggested_followup = None
             score = 5.0
-            reasoning = "Stellar response."
+            reasoning = "Accurate response."
         else:
-            if current_followup_count < max_followups:
-                decision = ProbeDecision.DEEPEN
-                suggested_followup = "Interesting, can you elaborate on the trade-offs?"
-                score = 3.5
-                reasoning = "Good start, needs depth."
-            else:
-                decision = ProbeDecision.PIVOT
-                suggested_followup = None
-                score = 4.0
-                reasoning = "Solid answer, moving on."
+            # Valid concise/one-word or standard answer
+            decision = ProbeDecision.PIVOT
+            suggested_followup = None
+            score = 4.5
+            reasoning = "Accurate and concise answer."
 
         for crit in mapped_criteria:
             evaluations.append(

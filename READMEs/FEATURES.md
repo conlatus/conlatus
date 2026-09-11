@@ -19,3 +19,5 @@
 - [Login Page 3D Surface Overlay Cleanup](../docs/login-page-cleanup.md) - Removed the bottom caption text overlay from the 3D WebGL ElasticMesh surface on the recruiter login page.
 - [Landing Page WebGL Wave Shader Integration & Redesign](../docs/landing-page-waves-redesign.md) - Integrated 21st.dev WebGL wave shader background, preserved signature handwriting font typography, and engineered AIDA-structured gapless Bento grid.
 - [Removal of "Continue with Google" on Login & Signup Dashboards](../docs/remove-google-auth-button.md) - Removed the "Continue with Google" OAuth button and divider from both the login and registration views, and configured Next.js route redirects for `/login` and `/signup`.
+- [Ultra-Easy DEMO Interview & Short Question Synthesis](../docs/easy-demo-interview-and-short-synthesis.md) - Simplified default DEMO interview to basic computer science concepts (HTML, CSS, variables, languages), enabled single-word answers without penalty, and constrained AI autonomous synthesis to generate short ~ one-sentence questions.
+
