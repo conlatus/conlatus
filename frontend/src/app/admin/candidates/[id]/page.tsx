@@ -97,7 +97,7 @@ export default function CandidateDetailPage() {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 text-white/40 animate-pulse">
-        <div className="w-8 h-8 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin" />
+        <div className="w-8 h-8 rounded-full border-2 border-violet-500 border-t-transparent animate-spin" />
         <p className="text-xs">Loading comprehensive candidate scorecard & transcript...</p>
       </div>
     );
@@ -137,7 +137,7 @@ export default function CandidateDetailPage() {
           <span
             className={`text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border ${
               candidate.status === "completed"
-                ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
+                ? "bg-violet-500/15 text-violet-300 border-violet-500/30"
                 : candidate.status === "in-progress"
                 ? "bg-amber-500/15 text-amber-300 border border-amber-500/30 animate-pulse"
                 : "bg-white/10 text-white/60 border border-white/10"
@@ -156,7 +156,7 @@ export default function CandidateDetailPage() {
         contentClassName="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6"
       >
         <div className="flex items-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-800/40 border border-emerald-500/30 flex items-center justify-center text-2xl font-bold text-emerald-300 shrink-0 shadow-lg">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/20 to-indigo-800/40 border border-violet-500/30 flex items-center justify-center text-2xl font-bold text-violet-300 shrink-0 shadow-lg">
             {candidate.candidate_name ? candidate.candidate_name[0].toUpperCase() : "C"}
           </div>
           <div>
@@ -168,8 +168,8 @@ export default function CandidateDetailPage() {
                 <span
                   className={`text-xs font-semibold px-3 py-1 rounded-full border ${
                     isPass
-                      ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
-                      : "bg-rose-500/15 text-rose-400 border-rose-500/30"
+                      ? "bg-violet-500/15 text-violet-300 border border-violet-500/30"
+                      : "bg-rose-500/15 text-rose-400 border border-rose-500/30"
                   }`}
                 >
                   {candidate.overall_score.toFixed(1)} / 5.0 • {candidate.recommendation || "Assessed"}
@@ -178,7 +178,7 @@ export default function CandidateDetailPage() {
             </div>
             <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-white/50 mt-2">
               <span className="flex items-center gap-1.5 text-white/70 font-medium">
-                <Buildings size={14} className="text-emerald-400" />
+                <Buildings size={14} className="text-violet-400" />
                 {candidate.role_title} @ {candidate.company_name}
               </span>
               <span>•</span>
@@ -198,7 +198,7 @@ export default function CandidateDetailPage() {
             <span className="text-[10px] uppercase font-semibold text-white/40 tracking-wider block">
               Recorded Verdict
             </span>
-            <span className="text-sm font-semibold capitalize text-emerald-300">
+            <span className="text-sm font-semibold capitalize text-violet-300">
               {candidate.human_decision.replace("_", " ")}
             </span>
           </div>
@@ -217,7 +217,7 @@ export default function CandidateDetailPage() {
             contentClassName="p-6 space-y-3"
           >
             <h2 className="text-xs font-semibold uppercase tracking-wider text-white/50 flex items-center gap-2">
-              <ShieldCheck size={16} className="text-emerald-400" />
+              <ShieldCheck size={16} className="text-violet-400" />
               Executive Assessment Synthesis
             </h2>
             <p className="text-sm text-white/85 leading-relaxed">
@@ -236,10 +236,10 @@ export default function CandidateDetailPage() {
           <SpecularContainer
             radius={20}
             tintOpacity={0.01}
-            className="glass-panel border border-emerald-500/20 bg-emerald-950/[0.04]"
+            className="glass-panel border border-violet-500/20 bg-violet-950/[0.04]"
             contentClassName="p-6 space-y-4"
           >
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-violet-400 flex items-center gap-2">
               <CheckCircle size={16} />
               Demonstrated Strengths & Verbatim Quotes
             </h2>
@@ -249,9 +249,9 @@ export default function CandidateDetailPage() {
                 {candidate.synthesis_details.strengths.map((str, idx) => (
                   <div
                     key={idx}
-                    className="p-3.5 rounded-xl bg-black/40 border border-emerald-500/20 text-xs text-white/90 leading-relaxed flex items-start gap-3"
+                    className="p-3.5 rounded-xl bg-black/40 border border-violet-500/20 text-xs text-white/90 leading-relaxed flex items-start gap-3"
                   >
-                    <Quotes size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                    <Quotes size={18} className="text-violet-400 shrink-0 mt-0.5" />
                     <p className="flex-1">{str}</p>
                   </div>
                 ))}
@@ -317,7 +317,7 @@ export default function CandidateDetailPage() {
                   return (
                     <div key={key} className="flex items-center justify-between text-xs">
                       <span className="text-white/70">{label}</span>
-                      <span className="font-mono font-semibold text-emerald-400">
+                      <span className="font-mono font-semibold text-violet-400">
                         {item.score.toFixed(1)} / 5.0
                       </span>
                     </div>
@@ -340,7 +340,7 @@ export default function CandidateDetailPage() {
 
             <div className="grid grid-cols-2 gap-2">
               {[
-                { val: "hired", label: "Hire / Offer", color: "border-emerald-500 text-emerald-300 bg-emerald-500/15" },
+                { val: "hired", label: "Hire / Offer", color: "border-violet-500 text-violet-300 bg-violet-500/15" },
                 { val: "next_round", label: "Next Round", color: "border-teal-500 text-teal-300 bg-teal-500/15" },
                 { val: "under_review", label: "Under Review", color: "border-amber-500 text-amber-300 bg-amber-500/15" },
                 { val: "rejected", label: "Reject", color: "border-rose-500 text-rose-300 bg-rose-500/15" },
@@ -351,7 +351,7 @@ export default function CandidateDetailPage() {
                   onClick={() => setDecision(opt.val)}
                   className={`p-2.5 rounded-xl border text-xs font-medium text-center transition-all cursor-pointer ${
                     decision === opt.val
-                      ? `${opt.color} shadow-[0_0_12px_rgba(16,185,129,0.25)]`
+                      ? `${opt.color} shadow-[0_0_12px_rgba(139,92,246,0.25)]`
                       : "border-white/10 text-white/50 hover:bg-white/5 hover:text-white/80"
                   }`}
                 >
@@ -369,27 +369,26 @@ export default function CandidateDetailPage() {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Enter debrief notes for hiring committee..."
-                className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-xs text-white placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-xs text-white placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
               />
             </div>
 
             <div className="flex items-center justify-between pt-1">
               {saveSuccess && (
-                <span className="text-xs font-medium text-emerald-400 flex items-center gap-1">
+                <span className="text-xs font-medium text-violet-400 flex items-center gap-1">
                   <Check size={14} />
                   Decision updated!
                 </span>
               )}
               <div className="ml-auto">
-                <SpecularButton
-                  size="sm"
-                  radius={12}
-                  tint="#10b981"
+                <button
                   onClick={handleSaveDecision}
+                  disabled={isSavingDecision}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-xs font-semibold text-white transition-all shadow-lg shadow-violet-600/20 active:scale-[0.98] whitespace-nowrap cursor-pointer disabled:opacity-50"
                 >
-                  <FloppyDisk size={14} className="mr-1.5" />
-                  {isSavingDecision ? "Saving..." : "Save Verdict"}
-                </SpecularButton>
+                  <FloppyDisk size={14} />
+                  <span>{isSavingDecision ? "Saving..." : "Save Verdict"}</span>
+                </button>
               </div>
             </div>
           </SpecularContainer>
@@ -430,7 +429,7 @@ export default function CandidateDetailPage() {
                     isInterviewer
                       ? "bg-white/[0.02] border border-white/5"
                       : isPlaying
-                      ? "bg-emerald-950/20 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+                      ? "bg-violet-950/20 border border-violet-500/30 shadow-[0_0_15px_rgba(139,92,246,0.15)]"
                       : "bg-black/30 border border-white/10"
                   }`}
                 >
@@ -439,7 +438,7 @@ export default function CandidateDetailPage() {
                     className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 text-sm font-semibold border ${
                       isInterviewer
                         ? "bg-indigo-500/20 border-indigo-500/30 text-indigo-300"
-                        : "bg-emerald-500/20 border-emerald-500/30 text-emerald-300"
+                        : "bg-violet-500/20 border-violet-500/30 text-violet-300"
                     }`}
                   >
                     {isInterviewer ? <Robot size={18} /> : <User size={18} />}
@@ -462,7 +461,7 @@ export default function CandidateDetailPage() {
                         onClick={() => togglePlayAudio(turn.id)}
                         className={`p-1.5 rounded-lg border transition-colors flex items-center gap-1 text-[11px] cursor-pointer ${
                           isPlaying
-                            ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+                            ? "bg-violet-500/20 text-violet-300 border-violet-500/40"
                             : "text-white/40 hover:text-white bg-white/5 border-white/5"
                         }`}
                         title="Simulate speech audio turn"

@@ -15,7 +15,7 @@ export default function SetupInterviewPage() {
   const [jobDescription, setJobDescription] = useState("");
   const [rubricTags, setRubricTags] = useState<string[]>(["HTML", "CSS", "Variables", "Basic Programming"]);
   const [customQuestions, setCustomQuestions] = useState<string[]>([]);
-  
+
   // New State for Autonomous Generation
   const [mode, setMode] = useState<"manual" | "autonomous">("manual");
   const [seniorityLevel, setSeniorityLevel] = useState("Junior");
@@ -149,32 +149,26 @@ Best of luck!
             Configure the AI persona, job description, and evaluation rubric.
           </p>
         </div>
-        <SpecularButton
-          size="sm"
-          radius={999}
-          tint="#10b981"
-          tintOpacity={0.15}
-          textColor="#6ee7b7"
-          lineColor="#34d399"
-          baseColor="#064e3b"
-          intensity={1.2}
+        <button
           onClick={handleGenerateLink}
+          disabled={isGenerating}
+          className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-xs font-semibold text-white transition-all shadow-lg shadow-violet-600/20 active:scale-[0.98] whitespace-nowrap shrink-0 disabled:opacity-50 cursor-pointer"
         >
           {isGenerating ? "Generating..." : "Generate Link"}
-        </SpecularButton>
+        </button>
       </header>
 
       {generatedLink && (
         <SpecularContainer
           radius={20}
           tintOpacity={0.06}
-          className="mb-6 border border-emerald-500/30 glass-panel shadow-2xl"
+          className="mb-6 border border-violet-500/30 glass-panel shadow-2xl"
           contentClassName="p-6 flex flex-col gap-4"
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-white/10">
             <div>
-              <p className="text-sm text-emerald-400 font-semibold flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="text-sm text-violet-300 font-semibold flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
                 Interview Created & Ready to Share!
               </p>
               <p className="text-xs text-white/60 mt-0.5">
@@ -183,12 +177,12 @@ Best of luck!
             </div>
             <div className="flex items-center gap-2">
               <span className="text-[11px] text-white/50">Code:</span>
-              <code className="text-xs bg-black/60 px-2.5 py-1 rounded text-emerald-300 font-mono border border-white/10">
+              <code className="text-xs bg-black/60 px-2.5 py-1 rounded text-violet-300 font-mono border border-white/10">
                 {generatedCode}
               </code>
               <button
                 onClick={() => handleCopy(generatedCode || "", "code")}
-                className="text-xs text-emerald-400 hover:text-emerald-300 underline underline-offset-2 ml-1"
+                className="text-xs text-violet-400 hover:text-violet-300 underline underline-offset-2 ml-1"
               >
                 {copiedType === "code" ? "Copied!" : "Copy Code"}
               </button>
@@ -198,18 +192,17 @@ Best of luck!
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-black/30 p-3 rounded-xl border border-white/5">
             <div className="flex items-center gap-2 overflow-hidden flex-1">
               <span className="text-xs text-white/40 font-mono">Link:</span>
-              <span className="text-xs text-emerald-300 font-mono truncate select-all">
+              <span className="text-xs text-violet-300 font-mono truncate select-all">
                 {generatedLink}
               </span>
             </div>
             <div className="flex items-center gap-2 shrink-0">
-              <SpecularButton
-                size="sm"
-                radius={8}
+              <button
                 onClick={() => handleCopy(generatedLink, "link")}
+                className="px-4 py-2 rounded-lg bg-violet-600/30 border border-violet-500/40 text-xs font-medium text-violet-200 hover:bg-violet-600/40 transition-colors whitespace-nowrap cursor-pointer"
               >
                 {copiedType === "link" ? "Copied Link!" : "Copy Link"}
-              </SpecularButton>
+              </button>
             </div>
           </div>
 
@@ -223,7 +216,7 @@ Best of luck!
               className="flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#25D366] border border-[#25D366]/30 text-xs font-semibold transition-all shadow-sm group"
             >
               <svg className="w-4 h-4 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24">
-                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
               </svg>
               <span>Share Invite via WhatsApp</span>
             </a>
@@ -244,17 +237,15 @@ Best of luck!
       <div className="flex items-center gap-2 mb-4 bg-white/5 p-1 rounded-xl w-fit">
         <button
           onClick={() => setMode("manual")}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-            mode === "manual" ? "bg-white/10 text-white shadow" : "text-white/50 hover:text-white/80"
-          }`}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${mode === "manual" ? "bg-white/10 text-white shadow" : "text-white/50 hover:text-white/80"
+            }`}
         >
           Manual Setup
         </button>
         <button
           onClick={() => setMode("autonomous")}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
-            mode === "autonomous" ? "bg-emerald-500/20 text-emerald-300 shadow border border-emerald-500/30" : "text-white/50 hover:text-white/80"
-          }`}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${mode === "autonomous" ? "bg-violet-500/20 text-violet-300 shadow border border-violet-500/30" : "text-white/50 hover:text-white/80"
+            }`}
         >
           AI Autonomous Synthesis
         </button>
@@ -281,7 +272,7 @@ Best of luck!
                 onChange={(e) => setCompanyName(e.target.value)}
               />
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <AdminInput
                 label="Interview Duration (Minutes)"
@@ -290,12 +281,12 @@ Best of luck!
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
               />
-              
+
               {mode === "autonomous" && (
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-medium text-white/70 pl-1">Seniority Level</label>
-                  <select 
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 appearance-none"
+                  <select
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-violet-500/50 appearance-none"
                     value={seniorityLevel}
                     onChange={(e) => setSeniorityLevel(e.target.value)}
                   >
@@ -325,17 +316,16 @@ Best of luck!
           {mode === "autonomous" && (
             <SpecularContainer radius={24} tintOpacity={0.01} className="glass-panel" contentClassName="p-6 md:p-8 flex flex-col gap-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold uppercase tracking-widest text-emerald-400">
+                <h2 className="text-sm font-semibold uppercase tracking-widest text-violet-400">
                   Synthesized Curriculum
                 </h2>
-                <SpecularButton
-                  size="sm"
-                  radius={8}
-                  tint="#10b981"
+                <button
                   onClick={handleSynthesize}
+                  disabled={isSynthesizing}
+                  className="px-3.5 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-xs font-semibold text-white transition-all shadow-md shadow-violet-600/20 active:scale-[0.98] whitespace-nowrap cursor-pointer disabled:opacity-50"
                 >
-                  {isSynthesizing ? "Synthesizing..." : "✨ Synthesize Questions"}
-                </SpecularButton>
+                  {isSynthesizing ? "Synthesizing..." : " Synthesize Questions"}
+                </button>
               </div>
 
               {generatedQuestions.length === 0 ? (
@@ -347,13 +337,13 @@ Best of luck!
                   {generatedQuestions.map((q, index) => (
                     <div key={q.id || index} className="bg-black/30 border border-white/5 rounded-xl p-4 flex flex-col gap-3">
                       <div className="flex justify-between items-start">
-                        <span className="text-xs font-semibold bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded">
+                        <span className="text-xs font-semibold bg-violet-500/20 text-violet-300 px-2 py-1 rounded border border-violet-500/25">
                           {q.competency_tag}
                         </span>
                         <span className="text-xs text-white/40">Diff: {q.difficulty}/5</span>
                       </div>
                       <textarea
-                        className="w-full bg-transparent border border-white/10 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-emerald-500/50 resize-y"
+                        className="w-full bg-transparent border border-white/10 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-violet-500/50 resize-y"
                         rows={3}
                         value={q.text}
                         onChange={(e) => handleUpdateGeneratedQuestion(index, e.target.value)}
@@ -376,8 +366,8 @@ Best of luck!
               {mode === "autonomous" ? "Focus Topics" : "Evaluation Rubric"}
             </h2>
             <p className="text-xs text-white/40 leading-relaxed mb-[-12px]">
-              {mode === "autonomous" 
-                ? "What technical areas should the AI focus on when synthesizing questions?" 
+              {mode === "autonomous"
+                ? "What technical areas should the AI focus on when synthesizing questions?"
                 : "Add skills/criteria for evaluation."}
             </p>
             <TagInput

@@ -73,7 +73,7 @@ export default function ReportModal({
           {/* Header */}
           <div className="flex items-start justify-between p-6 border-b border-white/10 bg-white/[0.02]">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-700/30 border border-emerald-500/30 flex items-center justify-center text-lg font-bold text-emerald-300 shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-indigo-800/40 border border-violet-500/30 flex items-center justify-center text-lg font-bold text-violet-300 shrink-0">
                 {candidate.candidate_name ? candidate.candidate_name[0].toUpperCase() : "C"}
               </div>
               <div>
@@ -85,7 +85,7 @@ export default function ReportModal({
                     <span
                       className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${
                         isPass
-                          ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
+                          ? "bg-violet-500/15 text-violet-300 border-violet-500/30"
                           : "bg-rose-500/15 text-rose-400 border-rose-500/30"
                       }`}
                     >
@@ -124,7 +124,7 @@ export default function ReportModal({
               onClick={() => setActiveTab("summary")}
               className={`pb-3 px-3 font-medium transition-colors border-b-2 ${
                 activeTab === "summary"
-                  ? "border-emerald-400 text-white"
+                  ? "border-violet-400 text-white"
                   : "border-transparent text-white/40 hover:text-white/70"
               }`}
             >
@@ -134,7 +134,7 @@ export default function ReportModal({
               onClick={() => setActiveTab("competencies")}
               className={`pb-3 px-3 font-medium transition-colors border-b-2 ${
                 activeTab === "competencies"
-                  ? "border-emerald-400 text-white"
+                  ? "border-violet-400 text-white"
                   : "border-transparent text-white/40 hover:text-white/70"
               }`}
             >
@@ -144,13 +144,13 @@ export default function ReportModal({
               onClick={() => setActiveTab("decision")}
               className={`pb-3 px-3 font-medium transition-colors border-b-2 flex items-center gap-1.5 ${
                 activeTab === "decision"
-                  ? "border-emerald-400 text-white"
+                  ? "border-violet-400 text-white"
                   : "border-transparent text-white/40 hover:text-white/70"
               }`}
             >
               Recruiter Decision
               {candidate.human_decision && (
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span className="w-2 h-2 rounded-full bg-violet-400" />
               )}
             </button>
           </div>
@@ -171,7 +171,7 @@ export default function ReportModal({
 
                 {/* Key Strengths with Quotes */}
                 <div className="space-y-3">
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-violet-400 flex items-center gap-1.5">
                     <CheckCircle size={15} />
                     Verified Strengths & Quote Evidence
                   </h3>
@@ -180,9 +180,9 @@ export default function ReportModal({
                       {candidate.synthesis_details.strengths.map((st, i) => (
                         <div
                           key={i}
-                          className="p-3.5 rounded-xl bg-emerald-950/20 border border-emerald-500/20 text-xs text-white/90 leading-relaxed flex items-start gap-2.5"
+                          className="p-3.5 rounded-xl bg-violet-950/20 border border-violet-500/20 text-xs text-white/90 leading-relaxed flex items-start gap-2.5"
                         >
-                          <Quotes size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                          <Quotes size={18} className="text-violet-400 shrink-0 mt-0.5" />
                           <span className="flex-1">{st}</span>
                         </div>
                       ))}
@@ -252,13 +252,13 @@ export default function ReportModal({
                         <div key={k} className="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1.5">
                           <div className="flex items-center justify-between text-xs">
                             <span className="font-medium text-white/80">{label}</span>
-                            <span className="font-mono font-semibold text-emerald-400">
+                            <span className="font-mono font-semibold text-violet-400">
                               {critScore.toFixed(1)} / 5.0
                             </span>
                           </div>
                           <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
                             <div
-                              className="h-full rounded-full bg-emerald-500 transition-all duration-500"
+                              className="h-full rounded-full bg-violet-500 transition-all duration-500"
                               style={{ width: `${percentage}%` }}
                             />
                           </div>
@@ -285,7 +285,7 @@ export default function ReportModal({
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     {[
-                      { val: "hired", label: "Hire / Offer", color: "border-emerald-500 text-emerald-300 bg-emerald-500/10" },
+                      { val: "hired", label: "Hire / Offer", color: "border-violet-500 text-violet-300 bg-violet-500/10" },
                       { val: "next_round", label: "Next Round", color: "border-teal-500 text-teal-300 bg-teal-500/10" },
                       { val: "under_review", label: "Under Review", color: "border-amber-500 text-amber-300 bg-amber-500/10" },
                       { val: "rejected", label: "Reject", color: "border-rose-500 text-rose-300 bg-rose-500/10" },
@@ -296,7 +296,7 @@ export default function ReportModal({
                         onClick={() => setDecision(opt.val)}
                         className={`p-2.5 rounded-xl border text-xs font-medium text-center transition-all cursor-pointer ${
                           decision === opt.val
-                            ? `${opt.color} shadow-[0_0_12px_rgba(16,185,129,0.2)]`
+                            ? `${opt.color} shadow-[0_0_12px_rgba(139,92,246,0.2)]`
                             : "border-white/10 text-white/50 hover:bg-white/5 hover:text-white/80"
                         }`}
                       >
@@ -315,27 +315,26 @@ export default function ReportModal({
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Enter interview takeaway notes, level recommendations, or debrief feedback..."
-                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-xs text-white placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-xs text-white placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
                   />
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
                   {saveSuccess && (
-                    <span className="text-xs font-medium text-emerald-400 flex items-center gap-1">
+                    <span className="text-xs font-medium text-violet-400 flex items-center gap-1">
                       <CheckCircle size={14} />
                       Verdict saved successfully!
                     </span>
                   )}
                   <div className="ml-auto">
-                    <SpecularButton
-                      size="sm"
-                      radius={12}
-                      tint="#10b981"
+                    <button
                       onClick={handleSaveDecision}
+                      disabled={isSavingDecision}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-xs font-semibold text-white transition-all shadow-lg shadow-violet-600/20 active:scale-[0.98] whitespace-nowrap cursor-pointer disabled:opacity-50"
                     >
-                      <FloppyDisk size={15} className="mr-1.5" />
-                      {isSavingDecision ? "Saving..." : "Record Decision"}
-                    </SpecularButton>
+                      <FloppyDisk size={15} />
+                      <span>{isSavingDecision ? "Saving..." : "Record Decision"}</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -348,13 +347,13 @@ export default function ReportModal({
             <div className="flex items-center gap-3">
               <button
                 onClick={onClose}
-                className="px-4 py-1.5 rounded-lg border border-white/10 hover:bg-white/5 text-white/70 hover:text-white transition-colors"
+                className="px-4 py-1.5 rounded-lg border border-white/10 hover:bg-white/5 text-white/70 hover:text-white transition-colors cursor-pointer"
               >
                 Close
               </button>
               <Link
                 href={`/admin/candidates/${candidate.id}`}
-                className="px-4 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30 transition-colors font-medium flex items-center gap-1.5"
+                className="px-4 py-1.5 rounded-lg bg-violet-500/20 text-violet-300 border border-violet-500/30 hover:bg-violet-500/30 transition-colors font-medium flex items-center gap-1.5"
               >
                 <span>Deep Dive Transcript</span>
                 <ArrowSquareOut size={13} />

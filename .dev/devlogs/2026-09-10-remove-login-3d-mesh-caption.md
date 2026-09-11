@@ -1,4 +1,4 @@
-# Devlog: Unveiling The Pure 3D Canvas — Goodbye Bottom Overlay Text! ✨🪐
+# Devlog: Unveiling The Pure 3D Canvas — Goodbye Bottom Overlay Text! 🪐
 
 **Date:** September 10, 2026  
 **Author:** Pair Programming Agent & Frontend Visual Engineer  
@@ -59,4 +59,4 @@ Now, the entire 3D surface breathes freely from edge to edge. The interactive me
 - **HMR:** Next.js hot-reloaded the change in milliseconds.
 - **Cleanliness Score:** 10/10 visual clarity upgrade.
 
-Time to grab that second cup of coffee and get back to the candidate intelligence pipeline! ☕✨
+Time to grab that second cup of coffee and get back to the candidate intelligence pipeline! ☕

@@ -79,8 +79,8 @@ export default function AdminOverviewPage() {
       <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-emerald-400">
+            <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
+            <span className="text-xs font-semibold uppercase tracking-wider text-violet-300">
               Autonomous Assessment Core
             </span>
           </div>
@@ -94,24 +94,16 @@ export default function AdminOverviewPage() {
 
         <div className="flex items-center gap-3">
           <Link href="/admin/candidates">
-            <button className="px-4 py-2 rounded-xl text-xs font-medium text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors">
+            <button className="px-4 py-2 rounded-xl text-xs font-medium text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors whitespace-nowrap cursor-pointer">
               Candidate Tracker
             </button>
           </Link>
-          <Link href="/admin/setup">
-            <SpecularButton
-              size="sm"
-              radius={999}
-              tint="#10b981"
-              tintOpacity={0.15}
-              textColor="#6ee7b7"
-              lineColor="#34d399"
-              baseColor="#064e3b"
-              intensity={1.2}
-            >
-              <Plus size={14} weight="bold" className="mr-1.5" />
-              Create Interview
-            </SpecularButton>
+          <Link
+            href="/admin/setup"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-xs font-semibold text-white transition-all shadow-lg shadow-violet-600/20 active:scale-[0.98] whitespace-nowrap shrink-0 cursor-pointer"
+          >
+            <Plus size={14} weight="bold" />
+            <span>Create Interview</span>
           </Link>
         </div>
       </header>
@@ -140,8 +132,8 @@ export default function AdminOverviewPage() {
           subtitle="All sessions orchestrated"
           trend="+18% this month"
           trendDirection="up"
-          icon={<Users size={18} className="text-emerald-400" />}
-          accentColor="#10b981"
+          icon={<Users size={18} className="text-violet-400" />}
+          accentColor="#8b5cf6"
         />
         <MetricsCard
           title="Average Assessment"
@@ -189,7 +181,7 @@ export default function AdminOverviewPage() {
             </h2>
             <Link
               href="/admin/candidates"
-              className="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-medium transition-colors"
+              className="text-xs text-violet-400 hover:text-violet-300 flex items-center gap-1 font-medium transition-colors"
             >
               <span>View all candidates</span>
               <ArrowRight size={13} />
@@ -232,7 +224,7 @@ export default function AdminOverviewPage() {
                             <span
                               className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider ${
                                 cand.status === "completed"
-                                  ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
+                                  ? "bg-violet-500/15 text-violet-300 border border-violet-500/25"
                                   : cand.status === "in-progress"
                                   ? "bg-amber-500/15 text-amber-300 border border-amber-500/20 animate-pulse"
                                   : "bg-white/10 text-white/50 border border-white/10"
@@ -254,7 +246,7 @@ export default function AdminOverviewPage() {
                             <span
                               className={`text-xs font-mono font-semibold px-2 py-1 rounded-lg ${
                                 isHire
-                                  ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                                  ? "bg-violet-500/15 text-violet-300 border border-violet-500/25"
                                   : "bg-rose-500/10 text-rose-400 border border-rose-500/20"
                               }`}
                             >
@@ -311,7 +303,7 @@ export default function AdminOverviewPage() {
                     alert.type === "warning"
                       ? "border-amber-500/25 bg-amber-950/10"
                       : alert.type === "success"
-                      ? "border-emerald-500/25 bg-emerald-950/10"
+                      ? "border-violet-500/25 bg-violet-950/10"
                       : "border-white/10 bg-white/[0.01]"
                   }`}
                   contentClassName="p-4 flex flex-col gap-1.5"
@@ -322,7 +314,7 @@ export default function AdminOverviewPage() {
                         <WarningCircle size={15} className="text-amber-400" />
                       )}
                       {alert.type === "success" && (
-                        <Sparkle size={15} className="text-emerald-400" />
+                        <Sparkle size={15} className="text-violet-400" />
                       )}
                       {alert.type === "info" && (
                         <Info size={15} className="text-indigo-400" />
@@ -351,7 +343,7 @@ export default function AdminOverviewPage() {
             contentClassName="p-5 flex flex-col gap-4"
           >
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <div className="w-8 h-8 rounded-lg bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-violet-400">
                 <Lightning size={16} weight="fill" />
               </div>
               <div>

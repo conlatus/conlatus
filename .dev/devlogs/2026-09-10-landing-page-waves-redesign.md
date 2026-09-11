@@ -26,7 +26,7 @@ Spoiler alert: It looks absolutely unreal. Let's dig into the tech!
 
 ---
 
-### Step 1: Anatomy of the Wave Shader (`waves-background.tsx`) 🎛️✨
+### Step 1: Anatomy of the Wave Shader (`waves-background.tsx`) 🎛️
 
 Let's appreciate how slick this component is under the hood:
 - **Zero Heavy Bundles:** No Three.js, no Babylon.js, no giant npm blobs. Just raw WebGL 1.0 driving two packed triangles (`new Float32Array([-1, -1, 3, -1, -1, 3])`).

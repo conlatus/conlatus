@@ -4,7 +4,7 @@ Pull up a chair and refill that mug! ☕️
 
 Sometimes it's the little architectural gremlins that catch you off guard. We were sailing high on our 55-test green streak when we noticed a couple of sneaky rough edges in `backend/routers/interview.py`, plus a classic dilemma: *how do we make our project feel right at home for folks who just want to type `npm install` without abandoning our beloved `pnpm`?*
 
-Here's how we tackled both with surgical precision. 🩺✨
+Here's how we tackled both with surgical precision. 🩺
 
 ---
 

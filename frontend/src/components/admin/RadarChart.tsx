@@ -81,10 +81,10 @@ export default function RadarChart({
         className="overflow-visible"
       >
         <defs>
-          {/* Radial emerald gradient for candidate fill */}
-          <radialGradient id="radarEmeraldGrad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#10b981" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="#059669" stopOpacity="0.12" />
+          {/* Radial violet gradient for candidate fill */}
+          <radialGradient id="radarVioletGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#6366f1" stopOpacity="0.12" />
           </radialGradient>
         </defs>
 
@@ -137,8 +137,8 @@ export default function RadarChart({
         {/* Candidate polygon */}
         <polygon
           points={candidatePoints}
-          fill="url(#radarEmeraldGrad)"
-          stroke="#10b981"
+          fill="url(#radarVioletGrad)"
+          stroke="#8b5cf6"
           strokeWidth="2"
           className="transition-all duration-500 ease-out"
         />
@@ -152,8 +152,8 @@ export default function RadarChart({
                 cx={x}
                 cy={y}
                 r="4"
-                fill="#10b981"
-                stroke="#047857"
+                fill="#8b5cf6"
+                stroke="#4c1d95"
                 strokeWidth="1.5"
                 className="hover:scale-125 transition-transform origin-center cursor-pointer"
               />
@@ -161,7 +161,7 @@ export default function RadarChart({
                 cx={x}
                 cy={y}
                 r="7"
-                fill="#10b981"
+                fill="#8b5cf6"
                 opacity="0.2"
               />
             </g>
@@ -192,7 +192,7 @@ export default function RadarChart({
               className="text-[11px] font-medium fill-white/70"
             >
               {item.label}
-              <tspan className="text-[10px] fill-emerald-400 font-mono font-semibold" dx="4">
+              <tspan className="text-[10px] fill-violet-400 font-mono font-semibold" dx="4">
                 {item.score.toFixed(1)}
               </tspan>
             </text>
@@ -203,7 +203,7 @@ export default function RadarChart({
       {/* Legend */}
       <div className="flex items-center gap-4 mt-3 text-xs text-white/50">
         <div className="flex items-center gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+          <span className="w-2.5 h-2.5 rounded-full bg-violet-500" />
           <span>Candidate ({items.reduce((acc, i) => acc + i.score, 0) / items.length > 0 ? (items.reduce((acc, i) => acc + i.score, 0) / items.length).toFixed(1) : "0.0"})</span>
         </div>
         <div className="flex items-center gap-1.5">

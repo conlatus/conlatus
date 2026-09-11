@@ -15,7 +15,7 @@ Navigating around required mental gymnastics:
 - How do we start the backend without a 40-character command line?
 - Why did the dev dashboard and tests get 422 errors if `interview_id` wasn't supplied?
 
-## The Clean-Sweep Refactor 🧹✨
+## The Clean-Sweep Refactor 🧹
 
 1. **Flattening the Python Nest**:
    We moved the entire FastAPI app directly into `/backend/`:

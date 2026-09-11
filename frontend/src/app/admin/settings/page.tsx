@@ -99,25 +99,19 @@ export default function AdminSettingsPage() {
 
         <div className="flex items-center gap-3">
           {saveSuccess && (
-            <span className="text-xs font-medium text-emerald-400 flex items-center gap-1">
+            <span className="text-xs font-medium text-violet-400 flex items-center gap-1">
               <CheckCircle size={15} />
               Saved successfully!
             </span>
           )}
-          <SpecularButton
-            size="sm"
-            radius={999}
-            tint="#10b981"
-            tintOpacity={0.15}
-            textColor="#6ee7b7"
-            lineColor="#34d399"
-            baseColor="#064e3b"
-            intensity={1.2}
+          <button
             onClick={handleSave}
+            disabled={isSaving}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-xs font-semibold text-white transition-all shadow-lg shadow-violet-600/20 active:scale-[0.98] whitespace-nowrap cursor-pointer disabled:opacity-50"
           >
-            <FloppyDisk size={14} className="mr-1.5" />
-            {isSaving ? "Saving..." : "Save Changes"}
-          </SpecularButton>
+            <FloppyDisk size={14} />
+            <span>{isSaving ? "Saving..." : "Save Changes"}</span>
+          </button>
         </div>
       </div>
 
@@ -162,7 +156,7 @@ export default function AdminSettingsPage() {
             >
               <div>
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-white/70 flex items-center gap-2">
-                  <Cpu size={18} className="text-emerald-400" />
+                  <Cpu size={18} className="text-violet-400" />
                   Primary LLM Inference Provider
                 </h2>
                 <p className="text-xs text-white/40 mt-1">
@@ -211,8 +205,8 @@ export default function AdminSettingsPage() {
                       }
                       className={`p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
                         isSelected
-                          ? "bg-emerald-950/20 border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.15)]"
-                          : "bg-white/[0.02] border-white/10 hover:border-white/20 hover:bg-white/[0.04]"
+                          ? "bg-violet-950/20 border-violet-500/50 shadow-[0_0_20px_rgba(139,92,246,0.15)]"
+                          : "bg-white/[0.02] border-white/10 hover:border-white/15 hover:bg-white/[0.04]"
                       }`}
                     >
                       <div className="space-y-2">
@@ -220,7 +214,7 @@ export default function AdminSettingsPage() {
                           <span
                             className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
                               isSelected
-                                ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+                                ? "bg-violet-500/20 text-violet-300 border border-violet-500/30"
                                 : "bg-white/10 text-white/50"
                             }`}
                           >
@@ -234,7 +228,7 @@ export default function AdminSettingsPage() {
 
                       <div className="pt-4 mt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-white/60">
                         <span>Model:</span>
-                        <span className="text-emerald-400 font-semibold">{prov.model}</span>
+                        <span className="text-violet-400 font-semibold">{prov.model}</span>
                       </div>
                     </div>
                   );
@@ -249,7 +243,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.model_name}
                     onChange={(e) => setSettings({ ...settings, model_name: e.target.value })}
-                    className="bg-black/60 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-emerald-300 font-mono w-64 focus:outline-none focus:border-emerald-500/50"
+                    className="bg-black/60 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-violet-300 font-mono w-64 focus:outline-none focus:border-violet-500/50"
                   />
                 </div>
               </div>
@@ -267,7 +261,7 @@ export default function AdminSettingsPage() {
           >
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-wider text-white/70 flex items-center gap-2">
-                <Key size={18} className="text-emerald-400" />
+                <Key size={18} className="text-violet-400" />
                 Inference API Keys
               </h2>
               <p className="text-xs text-white/40 mt-1">
@@ -281,7 +275,7 @@ export default function AdminSettingsPage() {
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-semibold text-white/90 flex items-center gap-2">
                     Groq API Key (GROQ_API_KEY)
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-violet-500/15 text-violet-300 border border-violet-500/30">
                       Active
                     </span>
                   </label>
@@ -292,7 +286,7 @@ export default function AdminSettingsPage() {
                   value={groqKey}
                   onChange={(e) => setGroqKey(e.target.value)}
                   placeholder="gsk_..."
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
                 />
               </div>
 
@@ -312,7 +306,7 @@ export default function AdminSettingsPage() {
                   value={anthropicKey}
                   onChange={(e) => setAnthropicKey(e.target.value)}
                   placeholder="sk-ant-api03-..."
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
                 />
               </div>
 
@@ -332,7 +326,7 @@ export default function AdminSettingsPage() {
                   value={openaiKey}
                   onChange={(e) => setOpenaiKey(e.target.value)}
                   placeholder="sk-..."
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
                 />
               </div>
             </div>
@@ -349,7 +343,7 @@ export default function AdminSettingsPage() {
           >
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-wider text-white/70 flex items-center gap-2">
-                <Sliders size={18} className="text-emerald-400" />
+                <Sliders size={18} className="text-violet-400" />
                 Assessment Criteria & Durations
               </h2>
               <p className="text-xs text-white/40 mt-1">
@@ -364,7 +358,7 @@ export default function AdminSettingsPage() {
                   <label className="text-xs font-semibold text-white/90">
                     Default Duration (Minutes)
                   </label>
-                  <span className="text-xs font-mono font-bold text-emerald-400">
+                  <span className="text-xs font-mono font-bold text-violet-400">
                     {settings.default_duration} mins
                   </span>
                 </div>
@@ -377,7 +371,7 @@ export default function AdminSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, default_duration: parseInt(e.target.value) })
                   }
-                  className="w-full accent-emerald-500 cursor-pointer"
+                  className="w-full accent-violet-500 cursor-pointer"
                 />
                 <p className="text-[11px] text-white/40">
                   Target candidate session time. Dialogue engine paces turn transitions dynamically.
@@ -390,7 +384,7 @@ export default function AdminSettingsPage() {
                   <label className="text-xs font-semibold text-white/90">
                     Passing Verdict Benchmark
                   </label>
-                  <span className="text-xs font-mono font-bold text-emerald-400">
+                  <span className="text-xs font-mono font-bold text-violet-400">
                     {settings.rubric_threshold.toFixed(1)} / 5.0
                   </span>
                 </div>
@@ -403,7 +397,7 @@ export default function AdminSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, rubric_threshold: parseFloat(e.target.value) })
                   }
-                  className="w-full accent-emerald-500 cursor-pointer"
+                  className="w-full accent-violet-500 cursor-pointer"
                 />
                 <p className="text-[11px] text-white/40">
                   Minimum composite score required to trigger an automatic "Hire" recommendation.
@@ -423,7 +417,7 @@ export default function AdminSettingsPage() {
           >
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-wider text-white/70 flex items-center gap-2">
-                <Buildings size={18} className="text-emerald-400" />
+                <Buildings size={18} className="text-violet-400" />
                 Organization Branding & Profile
               </h2>
               <p className="text-xs text-white/40 mt-1">
@@ -439,7 +433,7 @@ export default function AdminSettingsPage() {
                   value={settings.company_name}
                   onChange={(e) => setSettings({ ...settings, company_name: e.target.value })}
                   placeholder="Acme Labs"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-violet-500/50"
                 />
               </div>
 
@@ -450,7 +444,7 @@ export default function AdminSettingsPage() {
                   value={settings.recruiter_email || ""}
                   onChange={(e) => setSettings({ ...settings, recruiter_email: e.target.value })}
                   placeholder="talent@company.com"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-violet-500/50"
                 />
               </div>
             </div>
@@ -467,7 +461,7 @@ export default function AdminSettingsPage() {
           >
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-wider text-white/70 flex items-center gap-2">
-                <Bell size={18} className="text-emerald-400" />
+                <Bell size={18} className="text-violet-400" />
                 Notification & Alert Telemetry
               </h2>
               <p className="text-xs text-white/40 mt-1">
@@ -489,7 +483,7 @@ export default function AdminSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, email_notifications: e.target.checked })
                   }
-                  className="w-4 h-4 accent-emerald-500 cursor-pointer"
+                  className="w-4 h-4 accent-violet-500 cursor-pointer"
                 />
               </div>
 
@@ -506,7 +500,7 @@ export default function AdminSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, alert_on_finish: e.target.checked })
                   }
-                  className="w-4 h-4 accent-emerald-500 cursor-pointer"
+                  className="w-4 h-4 accent-violet-500 cursor-pointer"
                 />
               </div>
             </div>

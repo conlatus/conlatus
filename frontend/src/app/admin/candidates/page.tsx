@@ -124,20 +124,12 @@ Best of luck!
         </div>
 
         <div className="flex items-center gap-3">
-          <Link href="/admin/setup">
-            <SpecularButton
-              size="sm"
-              radius={999}
-              tint="#10b981"
-              tintOpacity={0.15}
-              textColor="#6ee7b7"
-              lineColor="#34d399"
-              baseColor="#064e3b"
-              intensity={1.2}
-            >
-              <Plus size={14} weight="bold" className="mr-1.5" />
-              New Candidate Invite
-            </SpecularButton>
+          <Link
+            href="/admin/setup"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-xs font-semibold text-white transition-all shadow-lg shadow-violet-600/20 active:scale-[0.98] whitespace-nowrap shrink-0 cursor-pointer"
+          >
+            <Plus size={14} weight="bold" />
+            <span>New Candidate Invite</span>
           </Link>
         </div>
       </div>
@@ -160,7 +152,7 @@ Best of luck!
             placeholder="Search candidate, role, or email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-black/40 border border-white/10 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-emerald-500/50"
+            className="w-full bg-black/40 border border-white/10 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
           />
         </div>
 
@@ -258,7 +250,7 @@ Best of luck!
                         <span
                           className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider ${
                             cand.status === "completed"
-                              ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                              ? "bg-violet-500/15 text-violet-300 border border-violet-500/30"
                               : cand.status === "in-progress"
                               ? "bg-amber-500/15 text-amber-300 border border-amber-500/30 animate-pulse"
                               : "bg-white/10 text-white/60 border border-white/10"
@@ -267,7 +259,7 @@ Best of luck!
                           <span
                             className={`w-1.5 h-1.5 rounded-full ${
                               cand.status === "completed"
-                                ? "bg-emerald-400"
+                                ? "bg-violet-400"
                                 : cand.status === "in-progress"
                                 ? "bg-amber-400"
                                 : "bg-white/40"
@@ -284,7 +276,7 @@ Best of luck!
                             <span
                               className={`inline-block font-mono font-semibold px-2 py-0.5 rounded text-xs ${
                                 isHire
-                                  ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                                  ? "bg-violet-500/15 text-violet-300 border border-violet-500/30"
                                   : "bg-rose-500/15 text-rose-400 border border-rose-500/30"
                               }`}
                             >
@@ -307,7 +299,7 @@ Best of luck!
                           <span
                             className={`px-2.5 py-1 rounded-md text-[11px] font-medium capitalize border ${
                               cand.human_decision === "hired"
-                                ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/30"
+                                ? "bg-violet-500/15 text-violet-300 border-violet-500/30"
                                 : cand.human_decision === "next_round"
                                 ? "bg-teal-500/10 text-teal-300 border-teal-500/30"
                                 : cand.human_decision === "rejected"
@@ -345,7 +337,7 @@ Best of luck!
                           {isCompleted ? (
                             <Link
                               href={`/admin/candidates/${cand.id}`}
-                              className="p-2 rounded-xl text-white/60 hover:text-emerald-300 bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                              className="p-2 rounded-xl text-white/60 hover:text-violet-300 bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
                               title="View Full In-depth Report & Transcript"
                             >
                               <ArrowSquareOut size={15} />
@@ -365,7 +357,7 @@ Best of luck!
                             onClick={() => handleCopyLink(cand.token, String(cand.id))}
                             className={`p-2 rounded-xl border transition-colors cursor-pointer ${
                               copiedId === String(cand.id)
-                                ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+                                ? "bg-violet-500/20 text-violet-300 border-violet-500/40"
                                 : "text-white/60 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10"
                             }`}
                             title="Copy Direct Interview Link"

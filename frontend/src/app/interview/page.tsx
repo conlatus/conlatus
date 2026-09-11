@@ -160,8 +160,8 @@ function CandidatePortalContent({ propCode }: { propCode?: string }) {
   return (
     <div className="min-h-screen w-full bg-[#050505] text-white flex items-center justify-center p-4 sm:p-6 relative overflow-hidden">
       {/* Dynamic Background Glows */}
-      <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-600/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-40 -left-40 w-96 h-96 bg-violet-600/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-xl relative z-10 flex flex-col gap-6">
         {/* Return to Home link */}
@@ -199,7 +199,7 @@ function CandidatePortalContent({ propCode }: { propCode?: string }) {
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-medium text-white/70 flex items-center justify-between">
                 <span className="flex items-center gap-1.5">
-                  <Key size={14} className="text-emerald-400" />
+                  <Key size={14} className="text-violet-400" />
                   Interview Access Code
                 </span>
                 {isVerifyingCode && (
@@ -216,7 +216,7 @@ function CandidatePortalContent({ propCode }: { propCode?: string }) {
                   placeholder="e.g. 9a78f23c-83b6-4ac4 or DEMO"
                   className={`w-full bg-black/40 border rounded-xl px-4 py-3 text-sm text-white font-mono placeholder:font-sans placeholder-white/30 focus:outline-none transition-all ${
                     details
-                      ? "border-emerald-500/50 ring-1 ring-emerald-500/30"
+                      ? "border-violet-500/50 ring-1 ring-violet-500/30"
                       : codeError
                       ? "border-red-500/50"
                       : "border-white/10 focus:border-white/30"
@@ -224,7 +224,7 @@ function CandidatePortalContent({ propCode }: { propCode?: string }) {
                   required
                 />
                 {details && (
-                  <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-400">
+                  <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-violet-400">
                     <CheckCircle size={18} weight="fill" />
                   </div>
                 )}
@@ -244,15 +244,15 @@ function CandidatePortalContent({ propCode }: { propCode?: string }) {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="bg-emerald-500/10 border border-emerald-500/25 rounded-xl p-4 flex flex-col gap-2"
+                  className="bg-violet-500/10 border border-violet-500/25 rounded-xl p-4 flex flex-col gap-2"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-emerald-300 font-semibold text-sm">
+                    <div className="flex items-center gap-2 text-violet-300 font-semibold text-sm">
                       <Buildings size={16} />
                       <span>{details.company_name}</span>
                     </div>
                     <div className="flex items-center gap-1.5 text-xs text-white/60 bg-black/40 px-2.5 py-1 rounded-lg border border-white/5">
-                      <Clock size={14} className="text-emerald-400" />
+                      <Clock size={14} className="text-violet-400" />
                       <span>{details.duration_minutes} Mins</span>
                     </div>
                   </div>
@@ -305,25 +305,17 @@ function CandidatePortalContent({ propCode }: { propCode?: string }) {
 
             {/* Device Preparation Tip */}
             <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white/60 flex items-start gap-2.5">
-              <Sparkle size={16} className="text-emerald-400 shrink-0 mt-0.5" />
+              <Sparkle size={16} className="text-violet-400 shrink-0 mt-0.5" />
               <span>
                 Please ensure you are in a quiet room with your camera and microphone ready. The interview uses real-time voice speech analysis.
               </span>
             </div>
 
             {/* Join Button */}
-            <SpecularButton
-              size="lg"
-              radius={14}
-              tint="#10b981"
-              tintOpacity={0.2}
-              textColor="#6ee7b7"
-              lineColor="#34d399"
-              baseColor="#064e3b"
-              intensity={1.3}
+            <button
               type="submit"
               disabled={isJoining}
-              className="w-full justify-center mt-2"
+              className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-sm font-semibold text-white transition-all shadow-lg shadow-violet-600/25 active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-2"
             >
               {isJoining ? (
                 <span className="flex items-center gap-2">
@@ -334,7 +326,7 @@ function CandidatePortalContent({ propCode }: { propCode?: string }) {
                   Start Technical Interview <ArrowRight size={16} />
                 </span>
               )}
-            </SpecularButton>
+            </button>
           </form>
         </SpecularContainer>
       </div>

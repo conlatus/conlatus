@@ -383,7 +383,7 @@ export default function InterviewRoom({
           </div>
 
           {isCompleted ? (
-            <div className="px-4 py-2 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-semibold flex items-center gap-1.5 border border-emerald-500/30 shadow-lg shadow-emerald-500/10">
+            <div className="px-4 py-2 rounded-full bg-violet-500/20 text-violet-300 text-xs font-semibold flex items-center gap-1.5 border border-violet-500/30 shadow-lg shadow-violet-500/10">
               <CheckCircle size={15} weight="fill" /> Session Completed
             </div>
           ) : (
@@ -485,7 +485,7 @@ export default function InterviewRoom({
                     isRecording ? (
                       <Microphone weight="fill" className="text-red-500 animate-pulse text-2xl" />
                     ) : isMicOn ? (
-                      <Microphone weight="fill" className="text-emerald-400 text-2xl" />
+                      <Microphone weight="fill" className="text-violet-400 text-2xl" />
                     ) : (
                       <MicrophoneSlash weight="fill" className="text-2xl text-white/50" />
                     )
@@ -509,7 +509,7 @@ export default function InterviewRoom({
                   title={isVideoOn ? "Turn Camera Off" : "Turn Camera On"}
                   icon={
                     isVideoOn ? (
-                      <VideoCamera weight="fill" className="text-emerald-400 text-2xl" />
+                      <VideoCamera weight="fill" className="text-violet-400 text-2xl" />
                     ) : (
                       <VideoCameraSlash weight="fill" className="text-2xl text-white/50" />
                     )
@@ -556,7 +556,7 @@ export default function InterviewRoom({
                           AI
                         </div>
                       ) : (
-                        <div className="w-6 h-6 rounded-full bg-emerald-500/20 shrink-0 flex items-center justify-center text-[10px] font-bold mt-1 text-emerald-400 border border-emerald-500/30">
+                        <div className="w-6 h-6 rounded-full bg-violet-500/20 shrink-0 flex items-center justify-center text-[10px] font-bold mt-1 text-violet-300 border border-violet-500/30">
                           You
                         </div>
                       )}
@@ -593,12 +593,12 @@ export default function InterviewRoom({
                       : "Type answer or use Push-To-Talk mic..."
                   }
                   disabled={isCompleted || isProcessing}
-                  className="flex-1 bg-black/40 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder-white/40 focus:outline-none focus:border-emerald-500/50"
+                  className="flex-1 bg-black/40 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50"
                 />
                 <button
                   type="submit"
                   disabled={!typedMessage.trim() || isProcessing || isCompleted}
-                  className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-emerald-500/20 text-white hover:text-emerald-300 border border-white/10 text-xs font-medium transition-all disabled:opacity-30 flex items-center justify-center"
+                  className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-violet-500/20 text-white hover:text-violet-300 border border-white/10 text-xs font-medium transition-all disabled:opacity-30 flex items-center justify-center"
                 >
                   <PaperPlaneRight size={14} weight="fill" />
                 </button>
@@ -620,7 +620,7 @@ export default function InterviewRoom({
                   {isCompleted ? "Status" : "Current Question"}
                 </p>
                 {isCompleted && (
-                  <span className="text-[10px] text-emerald-400 font-medium">Session Finalized</span>
+                  <span className="text-[10px] text-violet-400 font-medium">Session Finalized</span>
                 )}
               </div>
               <div className="relative z-10 overflow-y-auto max-h-[85px] pr-1">

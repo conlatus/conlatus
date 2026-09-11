@@ -10,7 +10,7 @@ We wanted our AI interviewer to hit the candidate with *real-world* scenarios. T
 
 We added a new Pydantic schema called `CurriculumPlanSchema`. This schema strictly forces the LLM to output an array of `GeneratedQuestionSchema` objects. The beautiful part is that it doesn't just generate the question text; it demands the LLM to also figure out the `competency_tag`, a `difficulty` level, and most importantly, the `expected_signals` and `rubric_criteria`.
 
-When a recruiter clicks the magical ✨ **Synthesize Questions** ✨ button on the frontend, we hit our new `/admin/generate-questions` endpoint.
+When a recruiter clicks the magical  **Synthesize Questions**  button on the frontend, we hit our new `/admin/generate-questions` endpoint.
 But wait, we didn't just tell the LLM to "write questions." We added a `WebResearchService` (currently heavily mocking the pipeline) designed to inject grounding context. It basically whispers in the LLM's ear: *"Hey, make sure you ask them about distributed consensus failures and production memory leaks."* 
 
 This ensures the generated curriculum is grounded in modern engineering realities, not 2012 textbook definitions.

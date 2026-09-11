@@ -75,7 +75,7 @@ We tackled both sides with surgical precision:
 
 ---
 
-### The Verdict: Absolute Eye Candy 📸✨
+### The Verdict: Absolute Eye Candy 📸
 
 We opened the headless browser and captured the live rendered screen:
 The waves are rolling across the entire display in glorious 60fps fluid motion. The whites, cyans, and deep blues create an ethereal backdrop, while the white headline and violet handwriting text remain 100% legible and ultra-sharp.
