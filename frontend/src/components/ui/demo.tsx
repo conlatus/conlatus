@@ -62,3 +62,5 @@ export const SignInPageDemo = () => {
 };
 
 export default SignInPageDemo;
+
+export { ShaderBackgroundDemo } from "./waves-background-demo";

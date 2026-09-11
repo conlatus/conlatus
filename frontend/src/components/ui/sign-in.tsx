@@ -280,16 +280,6 @@ export const SignInPage: React.FC<SignInPageProps> = ({
                 className="w-full h-full"
               />
             </div>
-
-            {/* Bottom Subtle Overlay Vignette & Caption */}
-            <div className="relative z-10 pointer-events-none space-y-1.5 pt-12">
-              <div className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-violet-400">
-                <span>Autonomous Technical Screening</span>
-              </div>
-              <p className="text-xs text-zinc-400 max-w-sm leading-relaxed font-sans">
-                Real-time voice synthesis, deterministic rubric scoring, and zero recruiter bias.
-              </p>
-            </div>
           </div>
 
           {testimonials.length > 0 && (
