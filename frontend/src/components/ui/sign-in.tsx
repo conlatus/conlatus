@@ -49,6 +49,8 @@ export interface SignInPageProps {
   error?: string | null;
   defaultEmail?: string;
   submitButtonText?: string;
+  switchAccountPrompt?: string;
+  switchAccountActionText?: string;
   children?: React.ReactNode;
 }
 
@@ -92,6 +94,8 @@ export const SignInPage: React.FC<SignInPageProps> = ({
   error = null,
   defaultEmail = "",
   submitButtonText = "Sign In",
+  switchAccountPrompt = "New to our platform?",
+  switchAccountActionText = "Create Account",
   children,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -214,22 +218,26 @@ export const SignInPage: React.FC<SignInPageProps> = ({
               </button>
             </form>
 
-            <div className="animate-element animate-delay-700 relative flex items-center justify-center my-1">
-              <span className="w-full border-t border-white/10"></span>
-              <span className="px-4 text-xs text-zinc-400 bg-[#050505] absolute">Or continue with</span>
-            </div>
+            {onGoogleSignIn && (
+              <>
+                <div className="animate-element animate-delay-700 relative flex items-center justify-center my-1">
+                  <span className="w-full border-t border-white/10"></span>
+                  <span className="px-4 text-xs text-zinc-400 bg-[#050505] absolute">Or continue with</span>
+                </div>
 
-            <button
-              type="button"
-              onClick={onGoogleSignIn}
-              className="animate-element animate-delay-800 w-full flex items-center justify-center gap-3 border border-white/10 rounded-2xl py-3.5 hover:bg-white/[0.06] transition-all duration-300 text-sm font-medium text-white cursor-pointer bg-white/[0.02]"
-            >
-              <GoogleIcon />
-              Continue with Google
-            </button>
+                <button
+                  type="button"
+                  onClick={onGoogleSignIn}
+                  className="animate-element animate-delay-800 w-full flex items-center justify-center gap-3 border border-white/10 rounded-2xl py-3.5 hover:bg-white/[0.06] transition-all duration-300 text-sm font-medium text-white cursor-pointer bg-white/[0.02]"
+                >
+                  <GoogleIcon />
+                  Continue with Google
+                </button>
+              </>
+            )}
 
-            <p className="animate-element animate-delay-900 text-center text-xs sm:text-sm text-zinc-400">
-              New to our platform?{" "}
+            <p className={`animate-element ${onGoogleSignIn ? "animate-delay-900" : "animate-delay-700"} text-center text-xs sm:text-sm text-zinc-400 pt-1`}>
+              {switchAccountPrompt}{" "}
               <a
                 href="#"
                 onClick={(e) => {
@@ -238,7 +246,7 @@ export const SignInPage: React.FC<SignInPageProps> = ({
                 }}
                 className="text-violet-400 hover:text-violet-300 hover:underline transition-colors font-medium"
               >
-                Create Account
+                {switchAccountActionText}
               </a>
             </p>
           </div>

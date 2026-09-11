@@ -7,15 +7,28 @@ import { SignInPage, GlassInputWrapper } from "@/components/ui/sign-in";
 import { ArrowLeft, User, Building2, ShieldCheck } from "lucide-react";
 
 function LoginFormContent() {
-  const [tab, setTab] = useState<"login" | "register">("login");
+  const searchParams = useSearchParams();
+  const requestedTab = searchParams.get("tab") || searchParams.get("mode");
+  const [tab, setTab] = useState<"login" | "register">(
+    requestedTab === "register" || requestedTab === "signup" ? "register" : "login"
+  );
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [rememberedEmail, setRememberedEmail] = useState("");
 
   const { login, register, isAuthenticated } = useAuth();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const redirectTarget = searchParams.get("redirect") || "/admin/setup";
+
+  // Sync tab state if URL search query changes
+  useEffect(() => {
+    const requested = searchParams.get("tab") || searchParams.get("mode");
+    if (requested === "register" || requested === "signup") {
+      setTab("register");
+    } else if (requested === "login") {
+      setTab("login");
+    }
+  }, [searchParams]);
 
   // Pre-load remembered email
   useEffect(() => {
@@ -64,10 +77,6 @@ function LoginFormContent() {
     }
   };
 
-  const handleGoogleSignIn = () => {
-    setError("Google OAuth is disabled in local mode. Please sign in with your email/password.");
-  };
-
   const handleResetPassword = () => {
     setError("Password reset link request initiated. Please contact your system administrator.");
   };
@@ -110,7 +119,6 @@ function LoginFormContent() {
         }
         heroImageSrc="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1400&auto=format&fit=crop"
         onSignIn={handleSignInSubmit}
-        onGoogleSignIn={handleGoogleSignIn}
         onResetPassword={handleResetPassword}
         onCreateAccount={() => {
           setError(null);
@@ -120,6 +128,8 @@ function LoginFormContent() {
         error={error}
         defaultEmail={rememberedEmail}
         submitButtonText={tab === "login" ? "Sign In to Dashboard" : "Register Account"}
+        switchAccountPrompt={tab === "login" ? "New to our platform?" : "Already have an account?"}
+        switchAccountActionText={tab === "login" ? "Create Account" : "Sign In to Dashboard"}
       >
         {/* Additional registration fields when tab is 'register' */}
         {tab === "register" && (

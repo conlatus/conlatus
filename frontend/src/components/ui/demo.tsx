@@ -34,11 +34,6 @@ export const SignInPageDemo = () => {
     alert(`Sign In Submitted! Check the browser console for form data.`);
   };
 
-  const handleGoogleSignIn = () => {
-    console.log("Continue with Google clicked");
-    alert("Continue with Google clicked");
-  };
-
   const handleResetPassword = () => {
     alert("Reset Password clicked");
   };
@@ -53,7 +48,6 @@ export const SignInPageDemo = () => {
         heroImageSrc="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1400&auto=format&fit=crop"
         testimonials={sampleTestimonials}
         onSignIn={handleSignIn}
-        onGoogleSignIn={handleGoogleSignIn}
         onResetPassword={handleResetPassword}
         onCreateAccount={handleCreateAccount}
       />
