@@ -22,3 +22,4 @@
 - [Ultra-Easy DEMO Interview & Short Question Synthesis](../docs/easy-demo-interview-and-short-synthesis.md) - Simplified default DEMO interview to basic computer science concepts (HTML, CSS, variables, languages), enabled single-word answers without penalty, and constrained AI autonomous synthesis to generate short ~ one-sentence questions.
 - [UI Palette Harmonization & Hover Effect Refinement](../docs/ui-palette-and-hover-cleanup.md) - Harmonized `/admin` and `/interview` with the root landing page violet/indigo OLED palette, eliminated aggressive mouse-tracking white hover borders across dashboard cards, and fixed action button wrapping.
 
+- [Tailwind CSS v4 @apply Shadow Utility Syntax Fix](../docs/tailwind-v4-apply-shadow-syntax-fix.md) - Resolved whitespace splitting in arbitrary shadow values inside @apply in globals.css, unblocking Next.js Turbopack build.

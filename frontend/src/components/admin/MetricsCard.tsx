@@ -62,13 +62,12 @@ export default function MetricsCard({
         </span>
         {trend && (
           <span
-            className={`text-xs font-medium px-2 py-0.5 rounded-full inline-flex items-center gap-1 whitespace-nowrap shrink-0 ${
-              trendDirection === "up"
+            className={`text-xs font-medium px-2 py-0.5 rounded-full inline-flex items-center gap-1 whitespace-nowrap shrink-0 ${trendDirection === "up"
                 ? "bg-violet-500/15 text-violet-300 border border-violet-500/20"
                 : trendDirection === "down"
-                ? "bg-rose-500/15 text-rose-400 border border-rose-500/20"
-                : "bg-white/10 text-white/60"
-            }`}
+                  ? "bg-rose-500/15 text-rose-400 border border-rose-500/20"
+                  : "bg-white/10 text-white/60"
+              }`}
           >
             {trendDirection === "up" && "↑"}
             {trendDirection === "down" && "↓"}

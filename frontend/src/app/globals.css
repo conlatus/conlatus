@@ -38,12 +38,15 @@ body {
   .ease-fluid {
     transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
   }
+
   .ease-fluid-slow {
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
+
   .glass-panel {
     @apply backdrop-blur-3xl bg-white/5 border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)];
   }
+
   .glass-panel-inner {
     @apply bg-black/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)];
   }
@@ -56,6 +59,7 @@ body {
     filter: blur(4px);
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     filter: blur(0px);
@@ -69,6 +73,7 @@ body {
     filter: blur(4px);
     transform: translateX(20px);
   }
+
   to {
     opacity: 1;
     filter: blur(0px);
@@ -82,6 +87,7 @@ body {
     filter: blur(4px);
     transform: translateY(20px) scale(0.96);
   }
+
   to {
     opacity: 1;
     filter: blur(0px);
@@ -104,18 +110,53 @@ body {
   opacity: 0;
 }
 
-.animate-delay-100 { animation-delay: 100ms; }
-.animate-delay-200 { animation-delay: 200ms; }
-.animate-delay-300 { animation-delay: 300ms; }
-.animate-delay-400 { animation-delay: 400ms; }
-.animate-delay-500 { animation-delay: 500ms; }
-.animate-delay-600 { animation-delay: 600ms; }
-.animate-delay-700 { animation-delay: 700ms; }
-.animate-delay-800 { animation-delay: 800ms; }
-.animate-delay-900 { animation-delay: 900ms; }
-.animate-delay-1000 { animation-delay: 1000ms; }
-.animate-delay-1200 { animation-delay: 1200ms; }
-.animate-delay-1400 { animation-delay: 1400ms; }
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+.animate-delay-600 {
+  animation-delay: 600ms;
+}
+
+.animate-delay-700 {
+  animation-delay: 700ms;
+}
+
+.animate-delay-800 {
+  animation-delay: 800ms;
+}
+
+.animate-delay-900 {
+  animation-delay: 900ms;
+}
+
+.animate-delay-1000 {
+  animation-delay: 1000ms;
+}
+
+.animate-delay-1200 {
+  animation-delay: 1200ms;
+}
+
+.animate-delay-1400 {
+  animation-delay: 1400ms;
+}
 
 /* Custom Checkbox */
 .custom-checkbox {

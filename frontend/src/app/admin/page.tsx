@@ -222,13 +222,12 @@ export default function AdminOverviewPage() {
                             </p>
                             {/* Status badge */}
                             <span
-                              className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider ${
-                                cand.status === "completed"
+                              className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider ${cand.status === "completed"
                                   ? "bg-violet-500/15 text-violet-300 border border-violet-500/25"
                                   : cand.status === "in-progress"
-                                  ? "bg-amber-500/15 text-amber-300 border border-amber-500/20 animate-pulse"
-                                  : "bg-white/10 text-white/50 border border-white/10"
-                              }`}
+                                    ? "bg-amber-500/15 text-amber-300 border border-amber-500/20 animate-pulse"
+                                    : "bg-white/10 text-white/50 border border-white/10"
+                                }`}
                             >
                               {cand.status}
                             </span>
@@ -244,11 +243,10 @@ export default function AdminOverviewPage() {
                         {isCompleted && cand.overall_score !== null ? (
                           <div className="text-right">
                             <span
-                              className={`text-xs font-mono font-semibold px-2 py-1 rounded-lg ${
-                                isHire
+                              className={`text-xs font-mono font-semibold px-2 py-1 rounded-lg ${isHire
                                   ? "bg-violet-500/15 text-violet-300 border border-violet-500/25"
                                   : "bg-rose-500/10 text-rose-400 border border-rose-500/20"
-                              }`}
+                                }`}
                             >
                               {cand.overall_score.toFixed(1)} / 5.0
                             </span>
@@ -299,13 +297,12 @@ export default function AdminOverviewPage() {
                   key={alert.id}
                   radius={16}
                   tintOpacity={0.01}
-                  className={`border glass-panel transition-all ${
-                    alert.type === "warning"
+                  className={`border glass-panel transition-all ${alert.type === "warning"
                       ? "border-amber-500/25 bg-amber-950/10"
                       : alert.type === "success"
-                      ? "border-violet-500/25 bg-violet-950/10"
-                      : "border-white/10 bg-white/[0.01]"
-                  }`}
+                        ? "border-violet-500/25 bg-violet-950/10"
+                        : "border-white/10 bg-white/[0.01]"
+                    }`}
                   contentClassName="p-4 flex flex-col gap-1.5"
                 >
                   <div className="flex items-center justify-between text-xs">

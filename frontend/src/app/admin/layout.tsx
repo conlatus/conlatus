@@ -48,11 +48,10 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 ease-fluid ${
-                  isActive
+                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 ease-fluid ${isActive
                     ? "bg-violet-600/20 text-white border border-violet-500/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
                     : "text-white/50 hover:bg-white/5 hover:text-white/80"
-                }`}
+                  }`}
               >
                 <Icon size={18} weight={isActive ? "fill" : "light"} />
                 <span className="text-sm font-medium">{item.name}</span>
