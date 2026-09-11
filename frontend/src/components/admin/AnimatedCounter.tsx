@@ -56,8 +56,14 @@ export default function AnimatedCounter({
     : Math.round(displayValue).toString();
 
   return (
-    <span className={`font-mono tracking-tight font-semibold tabular-nums ${className}`}>
-      {prefix}{formatted}{suffix}
+    <span className={`inline-flex items-baseline font-mono tracking-tight font-semibold tabular-nums whitespace-nowrap ${className}`}>
+      {prefix}
+      <span>{formatted}</span>
+      {suffix && (
+        <span className="text-base font-normal text-white/40 ml-1 font-sans">
+          {suffix}
+        </span>
+      )}
     </span>
   );
 }

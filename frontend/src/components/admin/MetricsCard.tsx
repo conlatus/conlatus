@@ -51,8 +51,8 @@ export default function MetricsCard({
         </div>
       </div>
 
-      <div className="flex items-baseline gap-2 mb-1">
-        <span className="text-3xl font-semibold tracking-tight text-white/95">
+      <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
+        <span className="text-3xl font-semibold tracking-tight text-white/95 whitespace-nowrap shrink-0">
           <AnimatedCounter
             value={value}
             decimals={decimals}
@@ -62,7 +62,7 @@ export default function MetricsCard({
         </span>
         {trend && (
           <span
-            className={`text-xs font-medium px-2 py-0.5 rounded-full flex items-center gap-1 ${
+            className={`text-xs font-medium px-2 py-0.5 rounded-full inline-flex items-center gap-1 whitespace-nowrap shrink-0 ${
               trendDirection === "up"
                 ? "bg-violet-500/15 text-violet-300 border border-violet-500/20"
                 : trendDirection === "down"
