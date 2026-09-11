@@ -256,7 +256,7 @@ Best of luck!
             mode === "autonomous" ? "bg-emerald-500/20 text-emerald-300 shadow border border-emerald-500/30" : "text-white/50 hover:text-white/80"
           }`}
         >
-          ✨ AI Autonomous Synthesis
+          AI Autonomous Synthesis
         </button>
       </div>
 
