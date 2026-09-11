@@ -23,3 +23,5 @@
 - [UI Palette Harmonization & Hover Effect Refinement](../docs/ui-palette-and-hover-cleanup.md) - Harmonized `/admin` and `/interview` with the root landing page violet/indigo OLED palette, eliminated aggressive mouse-tracking white hover borders across dashboard cards, and fixed action button wrapping.
 
 - [Tailwind CSS v4 @apply Shadow Utility Syntax Fix](../docs/tailwind-v4-apply-shadow-syntax-fix.md) - Resolved whitespace splitting in arbitrary shadow values inside @apply in globals.css, unblocking Next.js Turbopack build.
+- [Admin Dashboard Placeholder Records Cleanup](../docs/admin-placeholder-cleanup.md) - Purged unstarted test placeholder interview records from the database, resetting dashboard telemetry to clean state.
+
