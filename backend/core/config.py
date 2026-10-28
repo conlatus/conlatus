@@ -11,7 +11,12 @@ class Settings(BaseSettings):
     """
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=(
+            ".env",
+            "backend/.env",
+            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"),
+            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "backend", ".env"),
+        ),
         env_file_encoding="utf-8",
         extra="ignore",
     )
@@ -46,7 +51,16 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=60, description="Access token expiration in minutes")
     REFRESH_TOKEN_EXPIRE_DAYS: int = Field(default=7, description="Refresh token expiration in days")
     ALLOWED_ORIGINS: list[str] = Field(
-        default=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:8000"],
+        default=[
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+            "http://localhost:3001",
+            "http://127.0.0.1:3001",
+            "http://localhost:3002",
+            "http://127.0.0.1:3002",
+            "http://localhost:8000",
+            "http://127.0.0.1:8000",
+        ],
         description="Allowed CORS origins",
     )
 
