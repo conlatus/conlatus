@@ -26,4 +26,6 @@
 - [Admin Dashboard Placeholder Records Cleanup](../docs/admin-placeholder-cleanup.md) - Purged unstarted test placeholder interview records from the database, resetting dashboard telemetry to clean state.
 - [Environment Configuration & Groq API Key Setup](../docs/environment-configuration-and-groq-setup.md) - Configured multi-location .env resolution and activated Groq credentials for LLM dialogue and Whisper transcription.
 - [Multi-Port Development CORS & Preflight Resolution](../docs/cors-multi-port-origin-resolution.md) - Configured dynamic localhost origin regex and allowed origins for port 3001/3002 preflight authentication.
+- [Database Seeding Engine & Presentation Showcase Suite](../docs/demo-data-seeding-and-showcase.md) - Automated database bootstrapping with realistic mock candidates, transcripts, Pass 1/2 scores, and recruiter verdicts for instant evaluation defense.
+- [Developer Audio & Video Diagnostic Dashboard](../docs/developer-debug-dashboard.md) - Zero-dependency browser diagnostic console for testing WebRTC media, Whisper transcription, live rubric breakdown, and dialogue state machines.
 
